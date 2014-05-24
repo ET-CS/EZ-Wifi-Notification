@@ -6,6 +6,7 @@ Feautures:
 * 'Don't show this again' checkbox in the launcher activity.
 * Localization support
 * Disable Wi-Fi/Disable Flight buttons in main PreferencesActivity
+* Show what the data connection dBm number is in the ongoing, pull-down notification
 * Custom notification with option to Disable Wi-Fi/Flight mode (When in flight mode).
 * Vibration mode: normal vs lighter.
 * Define custom message for notifications 
@@ -13,6 +14,7 @@ Feautures:
 * 'Scan button' in notification and/or Suggest to connect to Wi-Fi 
 * Connectivity log
 * Switch to better Wi-Fi option
+* mobile ip address is shown
 * Effects in preferences screens
 * Backup/Import preferences (Manual and Auto) and/or sync to some cloud service (google+?)
 * Creat original custom ringtone sounds for connectivity changes.
