@@ -18,10 +18,4 @@
     <string name="about">About</string>
     <string name="copyright">&#9426;2011&#8211;14, Etay Cohen-Solal</string>
     <string name="back">Back</string>
-    <string name="pre_about_key">pre_about</string>
-    <string name="pre_short_title_key">pre_short_title</string>
-    <string name="pre_short_title_default">false</string>
-    <string name="pre_category_action_key">pre_category_action</string>
-    <string name="pre_category_action_title">Notification actions</string>
-    <string name="pre_category_action_summary">Set up Notifications click actions</string>
 </resources>

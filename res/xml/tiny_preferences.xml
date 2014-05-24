@@ -232,9 +232,14 @@
                 android:title="@string/pre_category_reset_title" >
                 <Preference
                     android:key="@string/pre_reset_key"
+                    android:summary="@string/pre_reset_summary"
                     android:title="@string/pre_reset_title" >
                 </Preference>
             </PreferenceCategory>
+            <Preference
+                android:key="@string/pre_github_key"
+                android:summary="@string/pre_github_summary"
+                android:title="@string/pre_github_title" />
             <Preference
                 android:key="@string/back"
                 android:title="@string/back" >

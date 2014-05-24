@@ -18,6 +18,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
+import android.util.Log;
 
 /**
  * Preferences Activity
@@ -25,6 +26,8 @@ import android.provider.Settings;
  */
 public class PreferencesActivity extends PreferenceActivity {
 
+	static final String TAG = "PreferencesActivity";
+	
 	/**
 	 * Where it all begins.. load the UI from XML and call SetupButtons().
 	 */
@@ -32,6 +35,7 @@ public class PreferencesActivity extends PreferenceActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		Log.println(Log.DEBUG, TAG , "Loading XML");
 		// Load the preferences from an XML resource
 		addPreferencesFromResource(R.xml.tiny_preferences);
 		
@@ -104,7 +108,21 @@ public class PreferencesActivity extends PreferenceActivity {
 		} catch (NameNotFoundException e) {
 			// Log.e("tag", e.getMessage());
 		}
+		
+		try {
+			// Set GitHub Preference link
+			Preference GitHub = (Preference) findPreference(getString(R.string.pre_github_key));
+			GitHub.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+				public boolean onPreferenceClick(Preference preference) {
+					OpenGitHub();
+					return true;
+				}
+			});			
+		} finally {
+			
+		}
 
+		
 		//clear notification when disabled
 		Preference NotificationSettingsPref = (Preference) findPreference(getString(R.string.pre_notification_key));
 		NotificationSettingsPref
@@ -282,6 +300,18 @@ public class PreferencesActivity extends PreferenceActivity {
 		startActivity(intent);
 	}
 
+	/**
+	 * Open GitHub Page
+	 */
+	public void OpenGitHub() {
+		Log.println(Log.DEBUG, TAG, "Opening GitHub page");
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		intent.setData(Uri.parse("https://github.com/ET-CS/EZ-Wifi-Notification"));
+		startActivity(intent);
+	}
+
+	
+	
 	// --------  Read from preferences helpers ----------
 	
 	/**
@@ -297,26 +327,5 @@ public class PreferencesActivity extends PreferenceActivity {
 		return sp.getBoolean(key,
 				Constants.DefaultSettingNotificationShortTitle); 
 	}
-	
-	/**
-	 * is Log Enabled in prefences? (default is false)
-	 * @return true or false
-	 */
-	public static boolean LogEnabled(Context context) {
-		// get settings
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-		return prefs.getBoolean(
-				context.getString(R.string.pre_log_key), 
-				Constants.DefaultSettingLog
-				); 
-	}
 
-	/**
-	 * is Log Enabled in prefences? (default is false)
-	 * @return true or false
-	 */
-	public boolean LogEnabled() {
-		return LogEnabled(this); 
-	}
-	
 }

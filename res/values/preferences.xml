@@ -11,6 +11,8 @@
     <string name="pre_notificationsound_title">Play notification sound</string>
     <string name="pre_autorotation">Disable Auto Rotation</string>
     <string name="pre_reset_key">pre_reset</string>
+    <string name="pre_reset_title">Reset Preferences</string>
+    <string name="pre_reset_summary">Reset to default settings</string>
     <string name="pre_wifisettings_key">pre_wifisettings</string>
     <string name="pre_wifisettings_title">Wi-Fi Settings</string>
     <string name="pre_notificationvib_key">pre_notificationvib</string>
@@ -20,7 +22,6 @@
     <string name="pre_notification_key">pre_notification</string>
     <string name="pre_notification_title">Show Notification</string>
     <string name="pre_notification_default">true</string>
-    <string name="pre_reset_title">Reset Preferences</string>
     <string name="pre_category_preferences_key">pre_category_preferences</string>
     <string name="pre_category_preferences_title">Preferences</string>
     <string name="pre_screen_service">Advanced</string>
@@ -144,8 +145,13 @@
     <string name="pre_screen_vibrate_key">pre_screen_vibrate</string>
     <string name="pre_screen_vibrate_title">Vibrations</string>
     <string name="pre_screen_vibrate_summary">Vibration for each event</string>
-    <string name="pre_log_key">pre_log</string>
-    <string name="pre_log_title">Enable logging</string>
-    <string name="pre_log_summary">Log problems</string>
-    <string name="pre_log_default">false</string>
+    <string name="pre_about_key">pre_about</string>
+    <string name="pre_short_title_key">pre_short_title</string>
+    <string name="pre_short_title_default">false</string>
+    <string name="pre_category_action_key">pre_category_action</string>
+    <string name="pre_category_action_title">Notification actions</string>
+    <string name="pre_category_action_summary">Set up Notifications click actions</string>
+    <string name="pre_github_key">pre_github</string>
+    <string name="pre_github_title">Fork on GitHub</string>
+    <string name="pre_github_summary">Do you know this software is Open-Source?</string>
 </resources>
