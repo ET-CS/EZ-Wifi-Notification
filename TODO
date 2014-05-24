@@ -2,7 +2,7 @@ Known bugz:
 
 Feautures:
 
-* Remove notification icon option
+* Remove notification icon option. for only JELLY_BEAN API Level 16 and above.
 * 'Don't show this again' checkbox in the launcher activity.
 * Localization support
 * Disable Wi-Fi/Disable Flight buttons in main PreferencesActivity
@@ -19,3 +19,4 @@ Feautures:
 * Backup/Import preferences (Manual and Auto) and/or sync to some cloud service (google+?)
 * Creat original custom ringtone sounds for connectivity changes.
 * Are you sure you want to reset settings question
+* Show internet IP if different from local IP
