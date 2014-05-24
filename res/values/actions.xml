@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pre_notification_wifi_action_key">pre_notification_wifi_action</string>
+    <string name="pre_notification_wifi_action_title">Wifi action</string>
+    <string name="pre_notification_wifi_action_summary">Set up notification click action on Wifi status</string>
+    <string-array name="pre_notification_wifi_actions">
+        <item>EZWifi Preferences</item>
+        <item>Wireless and network</item>
+        <item>Wi-Fi Settings</item>
+    </string-array>
+    <string-array name="pre_notification_wifi_actions_values">
+        <item>EZ</item>
+        <item>WIRELESS</item>
+        <item>WIFI</item>
+    </string-array>
+    <string name="pre_notification_wifi_action_default">EZ</string>
+    <string name="pre_notification_mobile_action_key">pre_notification_mobile_action</string>
+    <string name="pre_notification_mobile_action_title">Mobile action</string>
+    <string name="pre_notification_mobile_action_summary">Set up notification click action on mobile status</string>
+    <string-array name="pre_notification_mobile_actions">
+        <item>EZWifi Preferences</item>
+        <item>Wireless and network</item>
+        <item>Wi-Fi Settings</item>
+        <item>Data Roaming Settings</item>
+    </string-array>
+    <string-array name="pre_notification_mobile_actions_values">
+        <item>EZ</item>
+        <item>WIRELESS</item>
+        <item>WIFI</item>
+        <item>MOBILE</item>
+    </string-array>
+    <string name="pre_notification_mobile_action_default">EZ</string>
+    <string name="pre_notification_disconnected_action_key">pre_notification_disconnected_action</string>
+    <string name="pre_notification_disconnected_action_title">Disconnected action</string>
+    <string name="pre_notification_disconnected_action_summary">Set up notification click action in no connectivity</string>
+    <string-array name="pre_notification_disconnected_actions">
+        <item>EZWifi Preferences</item>
+        <item>Wireless and network</item>
+        <item>Wi-Fi Settings</item>
+    </string-array>
+    <string-array name="pre_notification_disconnected_actions_values">
+        <item>EZ</item>
+        <item>WIRELESS</item>
+        <item>WIFI</item>
+    </string-array>
+    <string name="pre_notification_disconnected_action_default">EZ</string>
+    <string name="pre_action_different_key">pre_action_different</string>
+    <string name="pre_action_different_title">Different actions</string>
+    <string name="pre_action_different_summary">Different action for every connectivity state</string>
+    <string name="pre_action_different_default">false</string>
+</resources>

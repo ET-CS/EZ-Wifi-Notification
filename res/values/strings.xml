@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ticker_text">Wifi-Manager</string>
+    <string name="log_tag">EZWifi</string>
+    <string name="settings">Settings</string>
+    <string name="help">Help</string>
+    <string name="scan">Scan</string>
+    <string name="listen">Listen</string>
+    <string name="wifiscanner">Wifi Scanner</string>
+    <string name="exitsettings">Exit Settings</string>
+    <string name="configured">Configured Connections</string>
+    <string name="enablerotation">Enable Rotation</string>
+    <string name="save">Save</string>
+    <string name="wifi">Wifi:</string>
+    <string name="wireless_settings">Wireless Settings</string>
+    <string name="wifisettings">Wifi Settings</string>
+    <string name="startservice">Start Service</string>
+    <string name="about">About</string>
+    <string name="copyright">&#9426;2011&#8211;13, Etay Cohen-Solal</string>
+    <string name="back">Back</string>
+    <string name="pre_about_key">pre_about</string>
+    <string name="pre_short_title_key">pre_short_title</string>
+    <string name="pre_short_title_default">false</string>
+    <string name="pre_category_action_key">pre_category_action</string>
+    <string name="pre_category_action_title">Notification actions</string>
+    <string name="pre_category_action_summary">Set up Notifications click actions</string>
+</resources>

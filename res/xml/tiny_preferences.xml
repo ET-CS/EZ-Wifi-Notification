@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="Preferences" >
+    <PreferenceCategory
+        android:key="@string/pre_category_notification_key"
+        android:title="@string/pre_category_notification_title" >
+        <PreferenceScreen
+            android:key="@string/pre_screen_notification_key"
+            android:summary="@string/pre_screen_notification_summary"
+            android:title="@string/pre_screen_notification_title" >
+            <PreferenceCategory
+                android:key="@string/pre_category_events_key"
+                android:title="@string/pre_category_events_title" >
+                <PreferenceScreen
+                    android:key="@string/pre_category_notification_events_key"
+                    android:summary="@string/pre_category_notification_events_summary"
+                    android:title="@string/pre_category_notification_events_title" >
+                    <CheckBoxPreference
+                        android:defaultValue="@string/pre_event_wifi_Default"
+                        android:key="@string/pre_event_wifi_key"
+                        android:summary="@string/pre_event_wifi_summary"
+                        android:title="@string/pre_event_wifi_title" >
+                    </CheckBoxPreference>
+                    <CheckBoxPreference
+                        android:defaultValue="@string/pre_event_mobile_Default"
+                        android:key="@string/pre_event_mobile_key"
+                        android:summary="@string/pre_event_mobile_summary"
+                        android:title="@string/pre_event_mobile_title" >
+                    </CheckBoxPreference>
+                    <CheckBoxPreference
+                        android:defaultValue="@string/pre_event_none_default"
+                        android:key="@string/pre_event_none_key"
+                        android:summary="@string/pre_event_none_summary"
+                        android:title="@string/pre_event_none_title" >
+                    </CheckBoxPreference>
+                </PreferenceScreen>
+            </PreferenceCategory>
+            <PreferenceCategory
+                android:key="@string/pre_category_notification_effects_key"
+                android:title="@string/pre_category_notification_effects_title" >
+                <CheckBoxPreference
+                    android:defaultValue="@string/pre_notification_default"
+                    android:key="@string/pre_notification_key"
+                    android:summary="@string/pre_notification_summary"
+                    android:title="@string/pre_notification_title" >
+                </CheckBoxPreference>
+                <CheckBoxPreference
+                    android:defaultValue="@string/pre_notification_lights_default"
+                    android:dependency="@string/pre_notification_key"
+                    android:key="@string/pre_notification_lights_key"
+                    android:summary="@string/pre_notification_lights_summary"
+                    android:title="@string/pre_notification_lights_title" />
+                <CheckBoxPreference
+                    android:defaultValue="@string/pre_notificationvib_default"
+                    android:key="@string/pre_notificationvib_key"
+                    android:summary="@string/pre_notificationvib_summary"
+                    android:title="@string/pre_notificationvib_title" >
+                </CheckBoxPreference>
+            </PreferenceCategory>
+            <PreferenceCategory
+                android:key="@string/pre_category_sound_key"
+                android:title="@string/pre_category_sound_title" >
+                <CheckBoxPreference
+                    android:key="@string/pre_notificationsound_key"
+                    android:summary="@string/pre_notificationsound_summary"
+                    android:title="@string/pre_notificationsound_title" >
+                </CheckBoxPreference>
+                <RingtonePreference
+                    android:dependency="@string/pre_notificationsound_key"
+                    android:key="@string/pre_ringtone_key"
+                    android:ringtoneType="notification"
+                    android:showDefault="true"
+                    android:summary="@string/pre_ringtone_summary"
+                    android:title="@string/pre_ringtone_title" >
+                </RingtonePreference>
+                <CheckBoxPreference
+                    android:defaultValue="@string/pre_one_ringtone_default"
+                    android:dependency="@string/pre_notificationsound_key"
+                    android:key="@string/pre_one_ringtone_key"
+                    android:summary="@string/pre_one_ringtone_summary"
+                    android:title="@string/pre_one_ringtone_title" />
+                <PreferenceScreen
+                    android:dependency="@string/pre_one_ringtone_key"
+                    android:key="@string/pre_screen_sound_key"
+                    android:summary="@string/pre_screen_sound_summary"
+                    android:title="@string/pre_screen_sound_title" >
+                    <RingtonePreference
+                        android:dependency="@string/pre_event_none_key"
+                        android:key="@string/pre_ringtone_offline_key"
+                        android:ringtoneType="notification"
+                        android:showDefault="true"
+                        android:showSilent="true"
+                        android:summary="@string/pre_ringtone_offline_summary"
+                        android:title="@string/pre_ringtone_offline_title" />
+                    <RingtonePreference
+                        android:dependency="@string/pre_event_mobile_key"
+                        android:key="@string/pre_ringtone_mobile_key"
+                        android:ringtoneType="notification"
+                        android:showDefault="true"
+                        android:showSilent="true"
+                        android:summary="@string/pre_ringtone_mobile_summary"
+                        android:title="@string/pre_ringtone_mobile_title" />
+                    <RingtonePreference
+                        android:dependency="@string/pre_event_wifi_key"
+                        android:key="@string/pre_ringtone_wifi_key"
+                        android:ringtoneType="notification"
+                        android:showDefault="true"
+                        android:showSilent="true"
+                        android:summary="@string/pre_ringtone_wifi_summary"
+                        android:title="@string/pre_ringtone_wifi_title" />
+                    <RingtonePreference
+                        android:dependency="@string/pre_event_wifi_key"
+                        android:key="@string/pre_ringtone_wimax_key"
+                        android:ringtoneType="notification"
+                        android:showDefault="true"
+                        android:showSilent="true"
+                        android:summary="@string/pre_ringtone_wimax_summary"
+                        android:title="@string/pre_ringtone_wimax_title" />
+                </PreferenceScreen>
+            </PreferenceCategory>
+            <PreferenceCategory
+                android:key="@string/pre_category_extendedinfo_key"
+                android:title="@string/pre_category_extendedinfo_title" >
+                <CheckBoxPreference
+                    android:defaultValue="@string/pre_short_title_default"
+                    android:dependency="@string/pre_notification_key"
+                    android:key="@string/pre_short_title_key"
+                    android:summary="@string/pre_short_title_summary"
+                    android:title="@string/pre_short_title_title" />
+                <CheckBoxPreference
+                    android:defaultValue="@string/pre_event_flight_Default"
+                    android:dependency="@string/pre_notification_key"
+                    android:key="@string/pre_event_flight_key"
+                    android:summary="@string/pre_event_flight_summary"
+                    android:title="@string/pre_event_flight_title" >
+                </CheckBoxPreference>
+                <CheckBoxPreference
+                    android:defaultValue="@string/pre_ip_default"
+                    android:dependency="@string/pre_notification_key"
+                    android:key="@string/pre_ip_key"
+                    android:summary="@string/pre_ip_summary"
+                    android:title="@string/pre_ip_title" >
+                </CheckBoxPreference>
+                <CheckBoxPreference
+                    android:defaultValue="@string/pre_ssid_default"
+                    android:dependency="@string/pre_notification_key"
+                    android:key="@string/pre_ssid_key"
+                    android:summary="@string/pre_ssid_summary"
+                    android:title="@string/pre_ssid_title" >
+                </CheckBoxPreference>
+            </PreferenceCategory>
+            <PreferenceCategory
+                android:key="@string/pre_category_notification_advanced_key"
+                android:title="@string/pre_category_notification_advanced_title" >
+                <ListPreference
+                    android:defaultValue="@string/pre_notification_type_default"
+                    android:dependency="@string/pre_notification_key"
+                    android:entries="@array/pre_notification_types"
+                    android:entryValues="@array/pre_notification_types_values"
+                    android:key="@string/pre_notification_type_key"
+                    android:summary="@string/pre_notification_type_summary"
+                    android:title="@string/pre_notification_type_title" >
+                </ListPreference>
+                <ListPreference
+                    android:defaultValue="@string/pre_notification_action_default"
+                    android:dependency="@string/pre_notification_key"
+                    android:entries="@array/pre_notification_actions"
+                    android:entryValues="@array/pre_notification_actions_values"
+                    android:key="@string/pre_notification_action_key"
+                    android:summary="@string/pre_notification_action_summary"
+                    android:title="@string/pre_notification_action_title" >
+                </ListPreference>
+                <CheckBoxPreference
+                    android:defaultValue="@string/pre_action_different_default"
+                    android:key="@string/pre_action_different_key"
+                    android:summary="@string/pre_action_different_summary"
+                    android:title="@string/pre_action_different_title" />
+                <PreferenceScreen
+                    android:dependency="@string/pre_action_different_key"
+                    android:key="@string/pre_category_action_key"
+                    android:title="@string/pre_category_action_title" >
+                    <ListPreference
+                        android:defaultValue="@string/pre_notification_wifi_action_default"
+                        android:dependency="@string/pre_notification_key"
+                        android:entries="@array/pre_notification_wifi_actions"
+                        android:entryValues="@array/pre_notification_wifi_actions_values"
+                        android:key="@string/pre_notification_wifi_action_key"
+                        android:summary="@string/pre_notification_wifi_action_summary"
+                        android:title="@string/pre_notification_wifi_action_title" >
+                    </ListPreference>
+                    <ListPreference
+                        android:defaultValue="@string/pre_notification_mobile_action_default"
+                        android:dependency="@string/pre_notification_key"
+                        android:entries="@array/pre_notification_mobile_actions"
+                        android:entryValues="@array/pre_notification_mobile_actions_values"
+                        android:key="@string/pre_notification_mobile_action_key"
+                        android:summary="@string/pre_notification_mobile_action_summary"
+                        android:title="@string/pre_notification_mobile_action_title" >
+                    </ListPreference>
+                    <ListPreference
+                        android:defaultValue="@string/pre_notification_disconnected_action_default"
+                        android:dependency="@string/pre_notification_key"
+                        android:entries="@array/pre_notification_disconnected_actions"
+                        android:entryValues="@array/pre_notification_disconnected_actions_values"
+                        android:key="@string/pre_notification_disconnected_action_key"
+                        android:summary="@string/pre_notification_disconnected_action_summary"
+                        android:title="@string/pre_notification_disconnected_action_title" >
+                    </ListPreference>
+                </PreferenceScreen>
+            </PreferenceCategory>
+        </PreferenceScreen>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="@string/pre_category_preferences_key"
+        android:title="@string/pre_category_preferences_title" >
+        <Preference
+            android:key="@string/pre_networksettings_key"
+            android:summary="@string/pre_networksettings_summary"
+            android:title="@string/pre_networksettings_title" >
+        </Preference>
+        <Preference
+            android:key="@string/pre_wifisettings_key"
+            android:summary="@string/pre_wifisettings_summary"
+            android:title="@string/pre_wifisettings_title" >
+        </Preference>
+        <PreferenceScreen
+            android:key="@string/pre_screen_service_key"
+            android:summary="@string/pre_screen_service_summary"
+            android:title="@string/pre_screen_service" >
+            <PreferenceCategory
+                android:key="@string/pre_category_reset_key"
+                android:title="@string/pre_category_reset_title" >
+                <Preference
+                    android:key="@string/pre_reset_key"
+                    android:title="@string/pre_reset_title" >
+                </Preference>
+            </PreferenceCategory>
+            <Preference
+                android:key="@string/back"
+                android:title="@string/back" >
+            </Preference>
+        </PreferenceScreen>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="About" >
+        <Preference
+            android:key="@string/pre_about_key"
+            android:summary="@string/copyright"
+            android:title="@string/app_name" >
+        </Preference>
+    </PreferenceCategory>
+</PreferenceScreen>

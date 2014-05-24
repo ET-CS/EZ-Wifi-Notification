@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources><string name="launcer_Header">Thank you for choosing EZ Wifi Notification</string>
+<string name="launcer_How">How it works?</string>
+<string name="launcer_instructions">You will have from now notification about your connectivity status</string>
+<string name="launcer_button_preferences">Preferences</string>
+<string name="launcer_button_close">Close</string>
+    
+</resources>
