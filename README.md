@@ -16,13 +16,13 @@ Key features:
   - Limited WiMAX Support
   - Created with stability, reliability and performance in mind
 
-The permission reuired are:
-  - android.permission.INTERNET"
-  - android.permission.ACCESS_NETWORK_STATE"
-  - android.permission.ACCESS_WIFI_STATE"
-  - android.permission.CHANGE_WIFI_STATE"
-  - android.permission.VIBRATE"
-  - android.permission.RECEIVE_BOOT_COMPLETED"
+The required permissions are:
+  - android.permission.INTERNET
+  - android.permission.ACCESS_NETWORK_STATE
+  - android.permission.ACCESS_WIFI_STATE
+  - android.permission.CHANGE_WIFI_STATE
+  - android.permission.VIBRATE
+  - android.permission.RECEIVE_BOOT_COMPLETED
 
 Version
 ----
