@@ -1,4 +1,6 @@
-package et.nWifiManager.conState;
+package et.nWifiManager.Message;
+
+import et.nWifiManager.conState.ConnectionStatusEnum;
 
 
 public class Messages {
@@ -6,17 +8,17 @@ public class Messages {
 	public static Message Wifi(String WifiName, String ssid, String ip, boolean flight, boolean short_title) {
 		Message m = new Message();		
 		if (ssid!="") {			
-			m.contentTitle = "Wi-Fi"+ ((flight) ? " (Flight): " : ": ") + ssid;
+			m.setContentTitle("Wi-Fi"+ ((flight) ? " (Flight): " : ": ") + ssid);
 		} else {
-			if (flight) { m.contentTitle = "Wi-Fi (Flight Mode)"; } else {
-			m.contentTitle = (!short_title) ? "Connected via Wi-Fi" : "Wi-Fi";}
+			if (flight) { m.setContentTitle("Wi-Fi (Flight Mode)"); } else {
+			m.setContentTitle((!short_title) ? "Connected via Wi-Fi" : "Wi-Fi");}
 		}
 		if (ip!="") {
-			m.contentText = WifiName + " (" + ip + ")";
+			m.setContentText(WifiName + " (" + ip + ")");
 		} else {
-			m.contentText = "Connected to " + WifiName;
+			m.setContentText("Connected to " + WifiName);
 		}
-		m.tickerText = m.contentText;
+		m.setTickerText(m.getContentText());
 		m.State = ConnectionStatusEnum.Wifi;
 		return m;		
 	}

@@ -309,8 +309,6 @@ public class PreferencesActivity extends PreferenceActivity {
 		intent.setData(Uri.parse("https://github.com/ET-CS/EZ-Wifi-Notification"));
 		startActivity(intent);
 	}
-
-	
 	
 	// --------  Read from preferences helpers ----------
 	

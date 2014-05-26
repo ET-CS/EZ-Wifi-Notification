@@ -1,9 +1,11 @@
 package et.nWifiManager.conState;
 
 import et.nWifiManager.Constants;
+import et.nWifiManager.Hardware;
 import et.nWifiManager.PreferencesActivity;
 import et.nWifiManager.R;
-import android.annotation.SuppressLint;
+import et.nWifiManager.Message.Message;
+import et.nWifiManager.Message.Messages;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,14 +13,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.NetworkInfo.DetailedState;
 import android.net.NetworkInfo.State;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.util.Log;
 
 public class Analyzer {
 
+	private static String TAG = "Analyzer";
+	
 	public boolean noConnection = true;
 	public boolean isConnected = false;
 	public State affectedState = null;
@@ -70,17 +71,24 @@ public class Analyzer {
 			// if there are no connected networks at all.
 			noConnection = intent.getBooleanExtra(
 					ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
+			
+			Log.d(TAG, "EXTRA_REASON Flag: "+mReason);
+			Log.d(TAG, "EXTRA_IS_FAILOVER Flag: "+mIsFailover);
+			Log.d(TAG, "EXTRA_NO_CONNECTIVITY Flag: "+noConnection);
+			
 			isConnected = !noConnection;
 			if (mNetworkInfo!=null) {
 				affectedState = mNetworkInfo.getState();
-				detailedState = mNetworkInfo.getDetailedState();	
+				detailedState = mNetworkInfo.getDetailedState();
+				Log.d(TAG, "mNetworkInfo.getState(): "+affectedState);
+				Log.d(TAG, "mNetworkInfo.getDetailedState(): "+detailedState);
 			}
 			
 			String fkey = context.getString(R.string.pre_event_flight_key);
 			boolean fdef = (context.getString(R.string.pre_event_flight_Default)=="true") ? true : false;
 			boolean nFlight = sp.getBoolean(fkey, fdef);
 			boolean flight = false;
-			if (nFlight) flight = isAirplaneModeOn(context);
+			if (nFlight) flight = Hardware.isAirplaneModeOn(context);
 				
 			
 			if (noConnection) {
@@ -92,11 +100,11 @@ public class Analyzer {
 						switch (detailedState) {
 							case OBTAINING_IPADDR:
 								Message m = new Message();
-								m.tickerText="Connecting Wi-Fi...";
-								m.contentText="Connecting to mobile";
-								m.contentTitle="Connecting Wi-Fi...";
-								m.vibrate=false;
-								m.sound=false;
+								m.setTickerText("Connecting Wi-Fi...");
+								m.setContentText("Connecting to mobile");
+								m.setContentTitle("Connecting Wi-Fi...");
+								m.setVibrate(false);
+								m.setSound(false);
 								return m;								
 							default:
 								return new Message("Connected to mobile", "Wi-Fi connection lost", "Conneced to mobile");
@@ -112,10 +120,10 @@ public class Analyzer {
 							if (mOtherNetworkInfo != null) {								
 								switch (mOtherNetworkInfo.getType()) {
 								case ConnectivityManager.TYPE_MOBILE:
-									m.contentText = "Switching to mobile...";
-									m.tickerText = m.contentText;
-									if (notificationSoundOnlyAtConnected) m.sound=false;
-									if (notificationVibrateOnlyAtConnected) m.vibrate=false;									
+									m.setContentText("Switching to mobile...");
+									m.setTickerText(m.getContentText());
+									if (notificationSoundOnlyAtConnected) m.setSound(false);
+									if (notificationVibrateOnlyAtConnected) m.setVibrate(false);									
 								}
 							} else {
 								return Messages.NoConnectivity();
@@ -160,9 +168,9 @@ public class Analyzer {
 										else
 										{
 											// new message to be sent to the user
-											return Messages.Wifi(WifiName(context), 
-													(isBSSIDEnabled) ? getSSID(context) : "",
-													(isIPEnabled) ? getIP(context) : "", flight, PreferencesActivity.isShortTitle(context));	
+											return Messages.Wifi(Hardware.WifiName(context), 
+													(isBSSIDEnabled) ? Hardware.getSSID(context) : "",
+													(isIPEnabled) ? Hardware.getIP(context) : "", flight, PreferencesActivity.isShortTitle(context));	
 											/* Message m = new Message();
 											m.contentTitle = (isBSSIDEnabled) ? (flight) ? "Flight Mode" : ("Wi-Fi") + " (" + getSSID(context) + ")"											
 													: (flight) ? "Wi-Fi (Flight mode)" : "Connected via Wi-Fi";
@@ -208,55 +216,6 @@ public class Analyzer {
 			return new Message(true, "", "", "");
 		}
 		return null;
-	}
-
-	// --------------------- Helpers -----------------------
-
-
-	private String getSSID(Context context) {
-		try {
-			return ((WifiManager) context.getSystemService(Context.WIFI_SERVICE))
-					.getConnectionInfo().getBSSID();
-		} catch (Exception ex) {
-			return "";
-		}
-	}
-
-	@SuppressLint("DefaultLocale")
-	private String getIP(Context context) {
-		try {
-			WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-			WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-			int ipAddress = wifiInfo.getIpAddress();
-
-			return String.format("%d.%d.%d.%d", (ipAddress & 0xff),
-					(ipAddress >> 8 & 0xff), (ipAddress >> 16 & 0xff),
-					(ipAddress >> 24 & 0xff));
-		} catch (Exception ex) {
-			// TODO Notify me
-			return "";
-		}
-	}
-
-	private String WifiName(Context context) {
-		try {
-			WifiManager wifiMgr = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-			WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
-			return wifiInfo.getSSID();
-		} catch (Exception ex) {
-			return "";
-		}
-	}
-	
-	/* Gets the state of Airplane Mode.
-	 * 
-	 * @param context
-	 * @return true if enabled.
-	 */
-	private static boolean isAirplaneModeOn(Context context) {
-		return Settings.System.getInt(context.getContentResolver(),
-				Settings.System.AIRPLANE_MODE_ON, 0) != 0;
-
 	}
 
 }
