@@ -237,16 +237,16 @@
                 </Preference>
             </PreferenceCategory>
             <Preference
-                android:key="@string/pre_github_key"
-                android:summary="@string/pre_github_summary"
-                android:title="@string/pre_github_title" />
-            <Preference
                 android:key="@string/back"
                 android:title="@string/back" >
             </Preference>
         </PreferenceScreen>
     </PreferenceCategory>
     <PreferenceCategory android:title="About" >
+        <Preference
+            android:key="@string/pre_github_key"
+            android:summary="@string/pre_github_summary"
+            android:title="@string/pre_github_title" />
         <Preference
             android:key="@string/pre_about_key"
             android:summary="@string/copyright"
