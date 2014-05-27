@@ -302,6 +302,18 @@ public class AnalyzeIntentService extends IntentService {
 		}
 	}
 
+	private int getIcon() {
+		SharedPreferences sp = PreferenceManager
+				.getDefaultSharedPreferences(getBaseContext());
+		
+		String key = getString(R.string.pre_icon_nowifi_key);
+
+		boolean noWifiIcon = sp.getBoolean(key,
+				Constants.DefaultSettingNoWifiIcon);
+		if (noWifiIcon) return R.drawable.icon_nowifi; 
+		return R.drawable.icon1;		
+	}
+	
 	/**
 	 * 
 	 * @param m
@@ -309,7 +321,8 @@ public class AnalyzeIntentService extends IntentService {
 	 */
 	private Notification CreateNotification(Message m) {
 		// Instantiate the Notification
-		Notification notification = new Notification(R.drawable.icon1,
+
+		Notification notification = new Notification(getIcon(),
 				m.getTickerText(), System.currentTimeMillis());
 		// Create Intent
 		PendingIntent contentIntent = CreateIntent(m);

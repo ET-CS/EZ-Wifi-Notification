@@ -154,4 +154,10 @@
     <string name="pre_github_key">pre_github</string>
     <string name="pre_github_title">Fork on GitHub</string>
     <string name="pre_github_summary">Do you know this software is Open-Source?</string>
+    <string name="pre_category_icon_key">pre_category_icon</string>
+    <string name="pre_category_icon_title">Icon</string>
+    <string name="pre_icon_nowifi_key">pre_icon_nowifi</string>
+    <string name="pre_icon_nowifi_title">Show \'No Wi-fi\' icon</string>
+    <string name="pre_icon_nowifi_summary">Show different icon when Wi-Fi is not connected or disabled</string>
+    <string name="pre_icon_nowifi_default">false</string>
 </resources>

@@ -67,7 +67,8 @@ public class PreferencesActivity extends PreferenceActivity {
 		// TODO Check if 'Different Actions' enabled before refreshing notification 
 		setListener(R.string.pre_notification_wifi_action_key);
 		setListener(R.string.pre_notification_mobile_action_key);
-		setListener(R.string.pre_notification_disconnected_action_key);		
+		setListener(R.string.pre_notification_disconnected_action_key);
+		setListener(R.string.pre_icon_nowifi_key);
 		
 		// Set the ringtone one button to set off the old rington selector
 		try {
