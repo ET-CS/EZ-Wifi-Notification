@@ -302,7 +302,7 @@ public class AnalyzeIntentService extends IntentService {
 		}
 	}
 
-	private int getIcon() {
+	private int getIcon(ConnectionStatusEnum state) {
 		SharedPreferences sp = PreferenceManager
 				.getDefaultSharedPreferences(getBaseContext());
 		
@@ -310,7 +310,16 @@ public class AnalyzeIntentService extends IntentService {
 
 		boolean noWifiIcon = sp.getBoolean(key,
 				Constants.DefaultSettingNoWifiIcon);
-		if (noWifiIcon) return R.drawable.icon_nowifi; 
+		if (noWifiIcon) {
+			switch (state) {
+			case Wifi:
+			case AirplaneWithWifi:
+			case WiMax:
+				break;  
+			default:
+				return R.drawable.icon_nowifi;
+			}
+		}
 		return R.drawable.icon1;		
 	}
 	
@@ -322,7 +331,7 @@ public class AnalyzeIntentService extends IntentService {
 	private Notification CreateNotification(Message m) {
 		// Instantiate the Notification
 
-		Notification notification = new Notification(getIcon(),
+		Notification notification = new Notification(getIcon(m.State),
 				m.getTickerText(), System.currentTimeMillis());
 		// Create Intent
 		PendingIntent contentIntent = CreateIntent(m);

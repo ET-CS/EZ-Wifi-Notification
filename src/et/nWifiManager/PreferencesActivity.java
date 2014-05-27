@@ -122,7 +122,6 @@ public class PreferencesActivity extends PreferenceActivity {
 		} finally {
 			
 		}
-
 		
 		//clear notification when disabled
 		Preference NotificationSettingsPref = (Preference) findPreference(getString(R.string.pre_notification_key));
