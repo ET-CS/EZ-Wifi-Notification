@@ -160,4 +160,7 @@
     <string name="pre_icon_nowifi_title">Show \'No Wi-fi\' icon</string>
     <string name="pre_icon_nowifi_summary">Show different icon when Wi-Fi is not connected or disabled</string>
     <string name="pre_icon_nowifi_default">false</string>
+    <string name="pre_contact_key">pre_contact</string>
+    <string name="pre_contact_title">Contact</string>
+    <string name="pre_contact_summary">Click to report something, suggest feature or just to say hi!</string>
 </resources>

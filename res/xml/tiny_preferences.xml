@@ -246,6 +246,10 @@
                 </Preference>
             </PreferenceCategory>
             <Preference
+                android:key="@string/pre_contact_key"
+                android:summary="@string/pre_contact_summary"
+                android:title="@string/pre_contact_title" />
+            <Preference
                 android:key="@string/back"
                 android:title="@string/back" >
             </Preference>

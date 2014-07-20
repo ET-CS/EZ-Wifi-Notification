@@ -16,12 +16,13 @@ public class Hardware {
 	 */
 	public static boolean isAirplaneModeOn(Context context) {
 		return Settings.System.getInt(context.getContentResolver(),
-				Settings.System.AIRPLANE_MODE_ON, 0) != 0;
+			Settings.System.AIRPLANE_MODE_ON, 0) != 0;
 	}
 
 	public static String getSSID(Context context) {
 		try {
-			return ((WifiManager) context.getSystemService(Context.WIFI_SERVICE))
+			return ((WifiManager) context
+					.getSystemService(Context.WIFI_SERVICE))
 					.getConnectionInfo().getBSSID();
 		} catch (Exception ex) {
 			return "";
@@ -31,7 +32,8 @@ public class Hardware {
 	@SuppressLint("DefaultLocale")
 	public static String getIP(Context context) {
 		try {
-			WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+			WifiManager wifiManager = (WifiManager) context
+					.getSystemService(Context.WIFI_SERVICE);
 			WifiInfo wifiInfo = wifiManager.getConnectionInfo();
 			int ipAddress = wifiInfo.getIpAddress();
 
@@ -46,12 +48,13 @@ public class Hardware {
 
 	public static String WifiName(Context context) {
 		try {
-			WifiManager wifiMgr = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+			WifiManager wifiMgr = (WifiManager) context
+					.getSystemService(Context.WIFI_SERVICE);
 			WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
 			return wifiInfo.getSSID();
 		} catch (Exception ex) {
 			return "";
 		}
 	}
-	
+
 }

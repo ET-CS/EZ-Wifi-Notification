@@ -35,7 +35,7 @@ public class PreferencesActivity extends PreferenceActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		Log.println(Log.DEBUG, TAG , "Loading XML");
+		//Log.println(Log.DEBUG, TAG , "Loading XML");
 		// Load the preferences from an XML resource
 		addPreferencesFromResource(R.xml.tiny_preferences);
 		
@@ -116,6 +116,19 @@ public class PreferencesActivity extends PreferenceActivity {
 			GitHub.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 				public boolean onPreferenceClick(Preference preference) {
 					OpenGitHub();
+					return true;
+				}
+			});			
+		} finally {
+			
+		}
+
+		try {
+			// Set GitHub Preference link
+			Preference Contact = (Preference) findPreference(getString(R.string.pre_contact_key));
+			Contact.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+				public boolean onPreferenceClick(Preference preference) {
+					Contact();
 					return true;
 				}
 			});			
@@ -308,6 +321,22 @@ public class PreferencesActivity extends PreferenceActivity {
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		intent.setData(Uri.parse("https://github.com/ET-CS/EZ-Wifi-Notification"));
 		startActivity(intent);
+	}
+	
+	/**
+	 * Contact me
+	 */
+	public void Contact() {
+		try {
+			String version = getPackageManager().getPackageInfo(
+					getPackageName(), 0).versionName;
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse("mailto:et.programming@gmail.com?subject=EZ Wifi Notification v"+version));
+			startActivity(intent);
+		} catch (NameNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	// --------  Read from preferences helpers ----------
