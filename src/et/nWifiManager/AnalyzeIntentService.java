@@ -9,6 +9,7 @@ import et.nWifiManager.Message.Messages;
 import et.nWifiManager.conState.Analyzer;
 import et.nWifiManager.conState.ConnectionStatusEnum;
 
+import android.annotation.TargetApi;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -22,6 +23,7 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -186,6 +188,7 @@ public class AnalyzeIntentService extends IntentService {
 	 * @param m
 	 *            - message
 	 */
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 	private void showNotification(Message m) {
 		Log.d(TAG, "Showing Notification for " + m.State.toString());
 		SharedPreferences sp = PreferenceManager
@@ -238,6 +241,12 @@ public class AnalyzeIntentService extends IntentService {
 				}
 			} else {
 				Notification notification = CreateNotification(m);
+				// Hide icon feature (for API 16+)
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+					if (PreferencesActivity.isHideIcon(this)) {
+						notification.priority = Notification.PRIORITY_MIN;	
+					}					
+				}
 				nm.notify(ID, notification);
 			}
 		} else {

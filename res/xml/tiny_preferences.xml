@@ -61,6 +61,12 @@
                 android:key="@string/pre_category_icon_key"
                 android:title="@string/pre_category_icon_title" >
                 <CheckBoxPreference
+                    android:defaultValue="@string/pre_notification_icon_default"
+                    android:enabled="false"
+                    android:key="@string/pre_notification_icon_key"
+                    android:summary="@string/pre_notification_icon_summary"
+                    android:title="@string/pre_notification_icon_title" />
+                <CheckBoxPreference
                     android:defaultValue="@string/pre_icon_nowifi_default"
                     android:key="@string/pre_icon_nowifi_key"
                     android:summary="@string/pre_icon_nowifi_summary"

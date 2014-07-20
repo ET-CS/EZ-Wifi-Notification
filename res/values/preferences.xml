@@ -163,4 +163,9 @@
     <string name="pre_contact_key">pre_contact</string>
     <string name="pre_contact_title">Contact</string>
     <string name="pre_contact_summary">Click to report something, suggest feature or just to say hi!</string>
+    <string name="pre_notification_icon_key">pre_notification_icon</string>
+    <string name="pre_notification_icon_title">Hide Notification Icon</string>
+    <string name="pre_notification_icon_summary">Available only to android 4.1+ users</string>
+    <string name="pre_notification_icon_summary_avail">Enable to hide top notification icon</string>
+    <string name="pre_notification_icon_default">false</string>
 </resources>

@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -69,6 +70,8 @@ public class PreferencesActivity extends PreferenceActivity {
 		setListener(R.string.pre_notification_mobile_action_key);
 		setListener(R.string.pre_notification_disconnected_action_key);
 		setListener(R.string.pre_icon_nowifi_key);
+		setListener(R.string.pre_notification_icon_key);
+
 		
 		// Set the ringtone one button to set off the old rington selector
 		try {
@@ -82,6 +85,17 @@ public class PreferencesActivity extends PreferenceActivity {
 			
 		}
 
+		// Enable the notification hide icon setting on api 19+
+		try {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+				CheckBoxPreference hideicon = (CheckBoxPreference) findPreference(getString(R.string.pre_notification_icon_key));
+				hideicon.setEnabled(true);
+				hideicon.setSummary(R.string.pre_notification_icon_summary_avail);
+			}
+		} catch (Exception e) {
+			
+		} 
+		
 		// Set up 'different actions' to disable old one action button.
 		try {
 			CheckBoxPreference diffactions = (CheckBoxPreference) findPreference(getString(R.string.pre_action_different_key));
@@ -334,7 +348,6 @@ public class PreferencesActivity extends PreferenceActivity {
 			intent.setData(Uri.parse("mailto:et.programming@gmail.com?subject=EZ Wifi Notification v"+version));
 			startActivity(intent);
 		} catch (NameNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -353,6 +366,15 @@ public class PreferencesActivity extends PreferenceActivity {
 		String key = context.getString(R.string.pre_short_title_key);
 		return sp.getBoolean(key,
 				Constants.DefaultSettingNotificationShortTitle); 
+	}
+
+	public static boolean isHideIcon(Context context) {
+		// get settings
+		SharedPreferences sp = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		String key = context.getString(R.string.pre_notification_icon_key);
+		return sp.getBoolean(key,
+				Constants.DefaultSettingNotificationHideIcon);
 	}
 
 }
