@@ -288,7 +288,7 @@ public class AnalyzeIntentService extends IntentService {
 		if (notificationSound) {
 			Uri myUri = Uri.parse(strRingtonePreference); // initialize Uri here
 			MediaPlayer mediaPlayer = new MediaPlayer();
-			mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+			mediaPlayer.setAudioStreamType(AudioManager.STREAM_NOTIFICATION);
 			mediaPlayer.setDataSource(getApplicationContext(), myUri);
 			mediaPlayer.prepare();
 			mediaPlayer.start();
