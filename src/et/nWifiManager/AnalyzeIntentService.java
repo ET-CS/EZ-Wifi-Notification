@@ -37,21 +37,7 @@ import android.util.Log;
 public class AnalyzeIntentService extends IntentService {
 
 	// *********** analyzer settings ********************
-	/**
-	 * WifiService will remember last status and will not notify if nothing
-	 * changed.
-	 */
-	public final static boolean DontRepeatNotification = false; // TODO Remove
-																// this feature
-
-	/**
-	 * last status of the connection
-	 */
-	private static ConnectionStatusEnum lastStatus = null; // TODO Remove this
-															// field when
-															// DontRepeatNotification
-															// is removed.
-
+	
 	/**
 	 * Anaylize Intent in reciever can be disabled to test directly the
 	 * Bruteforce analyzer
@@ -149,6 +135,19 @@ public class AnalyzeIntentService extends IntentService {
 	
 	// --------------------- Logic Part ------------------------
 
+	/* BRUTAL PART (OLD) */
+	
+	/**
+	 * WifiService will remember last status and will not notify if nothing
+	 * changed.
+	 */
+	public final static boolean DontRepeatNotification = false; // TODO Remove
+
+	/**
+	 * last status of the connection
+	 */
+	private static ConnectionStatusEnum lastStatus = null; // TODO Remove this too
+	
 	/**
 	 * old way = scan what is now and not analyze message extras
 	 */
