@@ -56,7 +56,7 @@ public class AnalyzeIntentService extends IntentService {
 	 * Anaylize Intent in reciever can be disabled to test directly the
 	 * Bruteforce analyzer
 	 */
-	public final static boolean AnalyzeExtras = false;
+	public final static boolean AnalyzeExtras = true;
 
 	private static final String TAG = "AnalyzeIntentService";
 
