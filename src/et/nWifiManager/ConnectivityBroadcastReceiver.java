@@ -27,11 +27,11 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		try {
 			// Create Intent to AnalyzeIntentService
-			final Intent intentService = new Intent(context, AnalyzeIntentService.class);
+			final Intent intentService = new Intent(context, AnalyzeService.class);
 			// Set action to recieved intent action.
 			intentService.setAction(intent.getAction());
 			// Pass Intent as Extra to AnalyzeIntentService
-			if (AnalyzeIntentService.AnalyzeExtras) intentService.putExtras(intent);				
+			if (AnalyzeService.AnalyzeExtras) intentService.putExtras(intent);				
 			try {
 				// Start service (AnalyzeIntentService)
 				ComponentName component = context.startService(intentService);

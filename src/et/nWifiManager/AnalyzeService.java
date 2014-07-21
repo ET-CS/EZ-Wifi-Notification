@@ -15,7 +15,7 @@ import android.util.Log;
  * 
  * @author ET
  */
-public class AnalyzeIntentService extends IntentService {
+public class AnalyzeService extends IntentService {
 
 	// *********** analyzer settings ********************
 	
@@ -30,7 +30,7 @@ public class AnalyzeIntentService extends IntentService {
 	/**
 	 * Constructor. set worker thread name.
 	 */
-	public AnalyzeIntentService() {
+	public AnalyzeService() {
 		super("WNMService");
 	}
 
