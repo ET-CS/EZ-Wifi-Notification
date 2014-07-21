@@ -25,7 +25,7 @@ public class AnalyzeService extends IntentService {
 	 */
 	public final static boolean AnalyzeExtras = true;
 
-	private static final String TAG = "AnalyzeIntentService";
+	private static final String TAG = "AnalyzeService";
 
 	/**
 	 * Constructor. set worker thread name.
