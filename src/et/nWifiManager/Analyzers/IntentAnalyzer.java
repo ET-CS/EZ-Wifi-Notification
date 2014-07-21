@@ -85,7 +85,7 @@ public class IntentAnalyzer implements Analyzer {
 			}
 			
 			String fkey = context.getString(R.string.pre_event_flight_key);
-			boolean fdef = (context.getString(R.string.pre_event_flight_Default)=="true") ? true : false;
+			boolean fdef = (context.getString(R.bool.pre_event_flight_Default)=="true") ? true : false;
 			boolean nFlight = sp.getBoolean(fkey, fdef);
 			boolean flight = false;
 			if (nFlight) flight = Hardware.isAirplaneModeOn(context);

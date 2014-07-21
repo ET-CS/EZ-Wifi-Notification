@@ -45,13 +45,13 @@ public class SystemNotificator extends ContextWrapper {
 				.getDefaultSharedPreferences(getBaseContext());
 
 		String wkey = getString(R.string.pre_event_wifi_key);
-		boolean wdef = (getString(R.string.pre_event_wifi_Default) == "true") ? true
+		boolean wdef = (getString(R.bool.pre_event_wifi_Default) == "true") ? true
 				: false;
 		String mkey = getString(R.string.pre_event_mobile_key);
-		boolean mdef = (getString(R.string.pre_event_mobile_Default) == "true") ? true
+		boolean mdef = (getString(R.bool.pre_event_mobile_Default) == "true") ? true
 				: false;
 		String nkey = getString(R.string.pre_event_none_key);
-		boolean ndef = (getString(R.string.pre_event_none_default) == "true") ? true
+		boolean ndef = (getString(R.bool.pre_event_none_default) == "true") ? true
 				: false;
 		// get settings
 		boolean nWifi = sp.getBoolean(wkey, wdef);
@@ -94,7 +94,7 @@ public class SystemNotificator extends ContextWrapper {
 				// Hide icon feature (for API 16+)
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
 					if (PreferencesActivity.isHideIcon(this)) {
-						notification.priority = Notification.PRIORITY_MIN;	
+						notification.priority = Notification.PRIORITY_MIN;
 					}					
 				}
 				nm.notify(ID, notification);

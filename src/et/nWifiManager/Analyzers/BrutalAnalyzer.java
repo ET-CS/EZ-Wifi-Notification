@@ -43,7 +43,7 @@ public class BrutalAnalyzer extends ContextWrapper implements Analyzer {
 		SharedPreferences sp = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		String fkey = getString(R.string.pre_event_flight_key);
-		boolean fdef = (getString(R.string.pre_event_flight_Default) == "true") ? true
+		boolean fdef = (getString(R.bool.pre_event_flight_Default) == "true") ? true
 				: false;
 		boolean nFlight = sp.getBoolean(fkey, fdef);
 		Log.v(TAG, "testing FlightMode: " + nFlight);

@@ -2,6 +2,7 @@ package et.nWifiManager;
 
 // PreferencesActivity.java - Preferences screen.
 
+import android.annotation.TargetApi;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -32,18 +33,20 @@ public class PreferencesActivity extends PreferenceActivity {
 	/**
 	 * Where it all begins.. load the UI from XML and call SetupButtons().
 	 */
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		// Load the preferences from an XML resource
 		addPreferencesFromResource(R.xml.tiny_preferences);
-		
+
 		// Load the service (if not loaded before (?!)
 		((MyApplication) getApplication()).runOnce();
 		
 		// Setup Buttons handlers
-		SetupButtons();
+		SetupButtons();			
 
 	}
 

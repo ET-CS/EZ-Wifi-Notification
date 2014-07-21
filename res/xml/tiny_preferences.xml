@@ -16,19 +16,19 @@
                     android:summary="@string/pre_category_notification_events_summary"
                     android:title="@string/pre_category_notification_events_title" >
                     <CheckBoxPreference
-                        android:defaultValue="@string/pre_event_wifi_Default"
+                        android:defaultValue="@bool/pre_event_wifi_Default"
                         android:key="@string/pre_event_wifi_key"
                         android:summary="@string/pre_event_wifi_summary"
                         android:title="@string/pre_event_wifi_title" >
                     </CheckBoxPreference>
                     <CheckBoxPreference
-                        android:defaultValue="@string/pre_event_mobile_Default"
+                        android:defaultValue="@bool/pre_event_mobile_Default"
                         android:key="@string/pre_event_mobile_key"
                         android:summary="@string/pre_event_mobile_summary"
                         android:title="@string/pre_event_mobile_title" >
                     </CheckBoxPreference>
                     <CheckBoxPreference
-                        android:defaultValue="@string/pre_event_none_default"
+                        android:defaultValue="@bool/pre_event_none_default"
                         android:key="@string/pre_event_none_key"
                         android:summary="@string/pre_event_none_summary"
                         android:title="@string/pre_event_none_title" >
@@ -39,19 +39,19 @@
                 android:key="@string/pre_category_notification_effects_key"
                 android:title="@string/pre_category_notification_effects_title" >
                 <CheckBoxPreference
-                    android:defaultValue="@string/pre_notification_default"
+                    android:defaultValue="@bool/pre_notification_default"
                     android:key="@string/pre_notification_key"
                     android:summary="@string/pre_notification_summary"
                     android:title="@string/pre_notification_title" >
                 </CheckBoxPreference>
                 <CheckBoxPreference
-                    android:defaultValue="@string/pre_notification_lights_default"
+                    android:defaultValue="@bool/pre_notification_lights_default"
                     android:dependency="@string/pre_notification_key"
                     android:key="@string/pre_notification_lights_key"
                     android:summary="@string/pre_notification_lights_summary"
                     android:title="@string/pre_notification_lights_title" />
                 <CheckBoxPreference
-                    android:defaultValue="@string/pre_notificationvib_default"
+                    android:defaultValue="@bool/pre_notificationvib_default"
                     android:key="@string/pre_notificationvib_key"
                     android:summary="@string/pre_notificationvib_summary"
                     android:title="@string/pre_notificationvib_title" >
@@ -61,13 +61,13 @@
                 android:key="@string/pre_category_icon_key"
                 android:title="@string/pre_category_icon_title" >
                 <CheckBoxPreference
-                    android:defaultValue="@string/pre_notification_icon_default"
+                    android:defaultValue="@bool/pre_notification_icon_default"
                     android:enabled="false"
                     android:key="@string/pre_notification_icon_key"
                     android:summary="@string/pre_notification_icon_summary"
                     android:title="@string/pre_notification_icon_title" />
                 <CheckBoxPreference
-                    android:defaultValue="@string/pre_icon_nowifi_default"
+                    android:defaultValue="@bool/pre_icon_nowifi_default"
                     android:key="@string/pre_icon_nowifi_key"
                     android:summary="@string/pre_icon_nowifi_summary"
                     android:title="@string/pre_icon_nowifi_title" />
@@ -89,7 +89,7 @@
                     android:title="@string/pre_ringtone_title" >
                 </RingtonePreference>
                 <CheckBoxPreference
-                    android:defaultValue="@string/pre_one_ringtone_default"
+                    android:defaultValue="@bool/pre_one_ringtone_default"
                     android:dependency="@string/pre_notificationsound_key"
                     android:key="@string/pre_one_ringtone_key"
                     android:summary="@string/pre_one_ringtone_summary"
@@ -137,27 +137,27 @@
                 android:key="@string/pre_category_extendedinfo_key"
                 android:title="@string/pre_category_extendedinfo_title" >
                 <CheckBoxPreference
-                    android:defaultValue="@string/pre_short_title_default"
+                    android:defaultValue="@bool/pre_short_title_default"
                     android:dependency="@string/pre_notification_key"
                     android:key="@string/pre_short_title_key"
                     android:summary="@string/pre_short_title_summary"
                     android:title="@string/pre_short_title_title" />
                 <CheckBoxPreference
-                    android:defaultValue="@string/pre_event_flight_Default"
+                    android:defaultValue="@bool/pre_event_flight_Default"
                     android:dependency="@string/pre_notification_key"
                     android:key="@string/pre_event_flight_key"
                     android:summary="@string/pre_event_flight_summary"
                     android:title="@string/pre_event_flight_title" >
                 </CheckBoxPreference>
                 <CheckBoxPreference
-                    android:defaultValue="@string/pre_ip_default"
+                    android:defaultValue="@bool/pre_ip_default"
                     android:dependency="@string/pre_notification_key"
                     android:key="@string/pre_ip_key"
                     android:summary="@string/pre_ip_summary"
                     android:title="@string/pre_ip_title" >
                 </CheckBoxPreference>
                 <CheckBoxPreference
-                    android:defaultValue="@string/pre_ssid_default"
+                    android:defaultValue="@bool/pre_ssid_default"
                     android:dependency="@string/pre_notification_key"
                     android:key="@string/pre_ssid_key"
                     android:summary="@string/pre_ssid_summary"
@@ -186,7 +186,7 @@
                     android:title="@string/pre_notification_action_title" >
                 </ListPreference>
                 <CheckBoxPreference
-                    android:defaultValue="@string/pre_action_different_default"
+                    android:defaultValue="@bool/pre_action_different_default"
                     android:key="@string/pre_action_different_key"
                     android:summary="@string/pre_action_different_summary"
                     android:title="@string/pre_action_different_title" />
