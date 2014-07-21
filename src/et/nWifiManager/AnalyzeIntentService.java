@@ -4,9 +4,10 @@ import java.io.IOException;
 import java.util.Locale;
 
 
+import et.nWifiManager.Analyzers.BrutalAnalyzer;
+import et.nWifiManager.Analyzers.IntentAnalyzer;
 import et.nWifiManager.Message.Message;
 import et.nWifiManager.Message.Messages;
-import et.nWifiManager.conState.Analyzer;
 import et.nWifiManager.conState.ConnectionStatusEnum;
 
 import android.annotation.TargetApi;
@@ -19,7 +20,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -56,7 +56,7 @@ public class AnalyzeIntentService extends IntentService {
 	 * Anaylize Intent in reciever can be disabled to test directly the
 	 * Bruteforce analyzer
 	 */
-	public final static boolean AnalyzeExtras = true;
+	public final static boolean AnalyzeExtras = false;
 
 	private static final String TAG = "AnalyzeIntentService";
 
@@ -97,7 +97,7 @@ public class AnalyzeIntentService extends IntentService {
 	protected void analyzeIntent(Intent intent) {
 		if (intent.getAction() == null) {
 			// Intent is empty
-			Log.w(TAG, "Intent Action is empty. failover to brute notification");
+			Log.i(TAG, "Intent Action is empty. failover to brute notification");
 			ShowNotificationBrutaly();
 		} else {
 			// Check Intent Action (source)
@@ -113,7 +113,7 @@ public class AnalyzeIntentService extends IntentService {
 					if (intent.getExtras() != null) {
 						Message m = null;
 						try {
-							m = (new Analyzer()).AnalyzeIntent(
+							m = (new IntentAnalyzer()).AnalyzeIntent(
 									this, intent);
 						} catch (Exception ex) {
 							Log.e(TAG, "unknown fatal error analyzing intent. failover to brute", ex);
@@ -154,7 +154,8 @@ public class AnalyzeIntentService extends IntentService {
 	 */
 	private void ShowNotificationBrutaly() {
 		Log.d(TAG, "Showing notification brutally");
-		ConnectionStatusEnum status = ConnectionStatus();
+		//ConnectionStatusEnum status = ConnectionStatus();
+		ConnectionStatusEnum status = (new BrutalAnalyzer(this)).getConnectivityStatus();
 		if (Constants.Debug)
 			Log.d(getString(R.string.log_tag), "brutal status = " + status);
 		boolean Notify = true;
@@ -583,62 +584,6 @@ public class AnalyzeIntentService extends IntentService {
 	}
 
 	// --------------------- Connectivity ----------------------
-
-	/**
-	 * 
-	 * @return
-	 */
-	public ConnectionStatusEnum ConnectionStatus() {
-		final ConnectivityManager connMgr = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-		final android.net.NetworkInfo wifi = connMgr
-				.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-		final android.net.NetworkInfo mobile = connMgr
-				.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-		WifiManager wifiMgr = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-		WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
-		String name = wifiInfo.getSSID();
-
-		SharedPreferences sp = PreferenceManager
-				.getDefaultSharedPreferences(this);
-		String fkey = getString(R.string.pre_event_flight_key);
-		boolean fdef = (getString(R.string.pre_event_flight_Default) == "true") ? true
-				: false;
-		boolean nFlight = sp.getBoolean(fkey, fdef);
-		boolean inFlightMode = false;
-		if (!nFlight)
-			inFlightMode = Hardware.isAirplaneModeOn(getBaseContext());
-
-		try {
-			if (wifi.isAvailable()) {
-				// wifi
-				if (name == null) {
-					return ConnectionStatusEnum.NoWifi;
-				} else {
-					if (inFlightMode) {
-						return ConnectionStatusEnum.AirplaneWithWifi;
-					} else
-						return ConnectionStatusEnum.Wifi;
-				}
-			} else if (mobile.isAvailable()) {
-				if (mobile.isConnected()) {
-					if (inFlightMode) {
-						return ConnectionStatusEnum.Airplane;
-					} else {
-						// 3g
-						return ConnectionStatusEnum.Mobile;
-					}
-				} else {
-					// no network
-					return ConnectionStatusEnum.Disconnected;
-				}
-			} else {
-				// no network
-				return ConnectionStatusEnum.Disconnected;
-			}
-		} catch (Exception ex) {
-			return ConnectionStatusEnum.Error;
-		}
-	}
 
 	/**
 	 * 

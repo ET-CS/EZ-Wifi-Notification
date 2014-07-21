@@ -1,4 +1,4 @@
-package et.nWifiManager.conState;
+package et.nWifiManager.Analyzers;
 
 import et.nWifiManager.Constants;
 import et.nWifiManager.Hardware;
@@ -16,7 +16,7 @@ import android.net.NetworkInfo.State;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-public class Analyzer {
+public class IntentAnalyzer implements Analyzer {
 
 	private static String TAG = "Analyzer";
 	

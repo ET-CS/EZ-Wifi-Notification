@@ -7,9 +7,12 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.provider.Settings;
+import android.util.Log;
 
 public class Hardware {
 
+	private static final String TAG = "HardwareConnector";
+	
 	/**
 	 * Gets the state of Airplane Mode.
 	 * 
@@ -19,10 +22,13 @@ public class Hardware {
 	@SuppressWarnings("deprecation")
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 	public static boolean isAirplaneModeOn(Context context) {
+		Log.v(TAG, "Checking Flight-Mode");
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+			Log.d(TAG, "Checking Flight-Mode using JELLY_BEAN_MR1 API");
 			return Settings.System.getInt(context.getContentResolver(),
 					Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
 		} else {
+			Log.d(TAG, "Checking Flight-Mode using depreceated API");
 			return Settings.System.getInt(context.getContentResolver(),
 					Settings.System.AIRPLANE_MODE_ON, 0) != 0;
 		}
