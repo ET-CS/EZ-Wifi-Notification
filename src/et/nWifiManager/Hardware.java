@@ -24,11 +24,11 @@ public class Hardware {
 	public static boolean isAirplaneModeOn(Context context) {
 		Log.v(TAG, "Checking Flight-Mode");
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-			Log.d(TAG, "Checking Flight-Mode using JELLY_BEAN_MR1 API");
-			return Settings.System.getInt(context.getContentResolver(),
+			Log.d(TAG, "Checking FlightMode (JELLY_BEAN_MR1 API)");
+			return Settings.Global.getInt(context.getContentResolver(),
 					Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
 		} else {
-			Log.d(TAG, "Checking Flight-Mode using depreceated API");
+			Log.d(TAG, "Checking FlightMode (depreceated API)");
 			return Settings.System.getInt(context.getContentResolver(),
 					Settings.System.AIRPLANE_MODE_ON, 0) != 0;
 		}

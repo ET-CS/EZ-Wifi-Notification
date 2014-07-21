@@ -1,26 +1,13 @@
 package et.nWifiManager;
 
-import java.io.IOException;
-import java.util.Locale;
-
 import et.nWifiManager.Analyzers.BrutalAnalyzer;
 import et.nWifiManager.Analyzers.IntentAnalyzer;
 import et.nWifiManager.Message.Message;
-import et.nWifiManager.Message.Messages;
 import et.nWifiManager.Notificators.SystemNotificator;
 import et.nWifiManager.conState.ConnectionStatusEnum;
 
-import android.annotation.TargetApi;
 import android.app.IntentService;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
-import android.os.Build;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 /**
