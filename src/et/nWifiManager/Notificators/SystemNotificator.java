@@ -32,19 +32,6 @@ public class SystemNotificator extends ContextWrapper {
 		super(base);
 	}
 
-
-	/**
-	 * check Preferences if Notification is Enabled.
-	 * 
-	 * @return true if notification enabled.
-	 */
-	private boolean isNotificationEnabled() {
-		SharedPreferences sp = PreferenceManager
-				.getDefaultSharedPreferences(getBaseContext());
-		String skey = getString(R.string.pre_notification_key);
-		return sp.getBoolean(skey, Constants.DefaultSettingNotification);
-	}
-
 	/**
 	 * Show norification based on message
 	 * 
@@ -126,6 +113,18 @@ public class SystemNotificator extends ContextWrapper {
 					e.printStackTrace();
 				}
 		}
+	}
+
+	/**
+	 * check Preferences if Notification is Enabled.
+	 * 
+	 * @return true if notification enabled.
+	 */
+	private boolean isNotificationEnabled() {
+		SharedPreferences sp = PreferenceManager
+				.getDefaultSharedPreferences(getBaseContext());
+		String skey = getString(R.string.pre_notification_key);
+		return sp.getBoolean(skey, Constants.DefaultSettingNotification);
 	}
 	
 	private int getIcon(ConnectionStatusEnum state) {

@@ -36,7 +36,6 @@ public class PreferencesActivity extends PreferenceActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		//Log.println(Log.DEBUG, TAG , "Loading XML");
 		// Load the preferences from an XML resource
 		addPreferencesFromResource(R.xml.tiny_preferences);
 		
@@ -71,6 +70,7 @@ public class PreferencesActivity extends PreferenceActivity {
 		setListener(R.string.pre_notification_disconnected_action_key);
 		setListener(R.string.pre_icon_nowifi_key);
 		setListener(R.string.pre_notification_icon_key);
+		setRestartListener(R.string.pre_notification_icon_key);
 
 		
 		// Set the ringtone one button to set off the old rington selector
@@ -209,6 +209,14 @@ public class PreferencesActivity extends PreferenceActivity {
 		(findPreference(getString(resId))).setOnPreferenceChangeListener(overrider);
 	}
 
+	/**
+	 * Helper: set listener to remove and show again Notification on <resId>.onChange;
+	 * @param resId - Resource Id of the UI object.  
+	 */
+	private void setRestartListener(int resId) {
+		(findPreference(getString(resId))).setOnPreferenceChangeListener(restarter);
+	}
+	
 	// --------  Gui helpers ----------
 	
 	/**
@@ -223,6 +231,19 @@ public class PreferencesActivity extends PreferenceActivity {
 		}
 	};
 
+	/**
+	 * Helper: remove and reload Notification on <resId>.onChange.
+	 * Set by setListener on resId of objects need to reset notification on changes.
+	 */
+	public OnPreferenceChangeListener restarter = new OnPreferenceChangeListener() {
+		@Override
+		public boolean onPreferenceChange(Preference preference, Object newValue) {
+			clearNotification();
+			((MyApplication) getApplication()).runOnce();
+			return true;
+		}
+	};
+	
 	/**
 	 * Disable notification sound checkboxPreference
 	 * @param pref
