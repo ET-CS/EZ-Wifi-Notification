@@ -1,13 +1,28 @@
 package et.nWifiManager;
 
+import java.io.IOException;
+
 import et.nWifiManager.Analyzers.BrutalAnalyzer;
 import et.nWifiManager.Analyzers.IntentAnalyzer;
 import et.nWifiManager.Message.Message;
 import et.nWifiManager.Notificators.SystemNotificator;
 import et.nWifiManager.conState.ConnectionStatusEnum;
 
+import android.annotation.TargetApi;
 import android.app.IntentService;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Vibrator;
+import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.util.Log;
 
 /**
@@ -135,8 +150,8 @@ public class AnalyzeService extends IntentService {
 	private void ShowNotificationBrutaly() {
 		Log.d(TAG, "Showing notification brutally");
 		BrutalAnalyzer analyzer = new BrutalAnalyzer(this);
-		//ConnectionStatusEnum status = ConnectionStatus();
 		ConnectionStatusEnum status = analyzer.getConnectivityStatus();
+		//ConnectionStatusEnum status = ConnectionStatus();
 		if (Constants.Debug)
 			Log.d(getString(R.string.log_tag), "brutal status = " + status);
 		boolean Notify = true;
@@ -150,10 +165,10 @@ public class AnalyzeService extends IntentService {
 		}
 		if (Notify) {
 			(new SystemNotificator(this)).showNotification(analyzer.GenerateMessage(status));
+			//showNotification(analyzer.GenerateMessage(status));
 		} else {
 			Log.i(TAG, "Skipping identical notification");
 		}
 	}
-
 
 }
