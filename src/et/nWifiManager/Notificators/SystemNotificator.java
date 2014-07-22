@@ -312,10 +312,12 @@ public class SystemNotificator extends ContextWrapper {
 		// mHandler.post(new DisplayToast("did something"));
 		// define notification
 		if (notificationSound) {
-			if (message.isSound())
+			Log.e(TAG,"isSound:"+message.isSound());
+			if (message.isSound())				
 				notification.sound = Uri.parse(strRingtonePreference);
 		}
 		if (notificationVibrate) {
+			Log.e(TAG,"isVibrate:"+message.isVibrate());
 			if (message.isVibrate())
 				notification.vibrate = VibrationToUse(message);
 		}
