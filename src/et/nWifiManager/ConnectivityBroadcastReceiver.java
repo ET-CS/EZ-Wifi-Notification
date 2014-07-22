@@ -11,6 +11,7 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 /** Receiver for CONNECTIVITY_CHANGE, AIRPLANE_MODE, BOOT_COMPLETED
  * that fires up WifiService on start 
@@ -20,12 +21,15 @@ import android.content.Intent;
  */
 public class ConnectivityBroadcastReceiver extends BroadcastReceiver {
 
+	private static final String TAG = "ConnectivityBroadcastReceiver";
+	
 	/**
 	 * onReceive must be very quick and not block, so it just fires up AnalyzeIntentService
 	 */
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		try {
+			Log.v(TAG, "onReceived called");
 			// Create Intent to AnalyzeIntentService
 			final Intent intentService = new Intent(context, AnalyzeService.class);
 			// Set action to recieved intent action.
@@ -33,19 +37,20 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver {
 			// Pass Intent as Extra to AnalyzeIntentService
 			if (AnalyzeService.AnalyzeExtras) intentService.putExtras(intent);				
 			try {
+				Log.v(TAG, "trying startService()");
 				// Start service (AnalyzeIntentService)
 				ComponentName component = context.startService(intentService);
 				if (component != null) {
 					// the service is being started or is already running,
 					// the ComponentName of the actual service that was started
 					// is returned;
-					// TODO Figure out what to do with that
+					Log.w(TAG, "the service is being started or is already running");
 				}
 			} catch (SecurityException ex) {
-				// TODO Check why it happens and under what conditions
+				Log.e(TAG, ex.getMessage());
 			}
 		} catch (Exception ex) {			
-			// TODO Notify me of the exception
+			Log.e(TAG, ex.getMessage());
 		}
 	}
 	
