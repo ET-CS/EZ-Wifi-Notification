@@ -19,7 +19,7 @@ public class Messages {
 			m.setContentText("Connected to " + WifiName);
 		}
 		m.setTickerText(m.getContentText());
-		m.State = ConnectionStatusEnum.Wifi;
+		m.setState(ConnectionStatusEnum.Wifi);
 		return m;		
 	}
 	

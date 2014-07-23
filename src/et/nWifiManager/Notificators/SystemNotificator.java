@@ -32,6 +32,13 @@ public class SystemNotificator extends ContextWrapper {
 		super(base);
 	}
 
+	// Get Setting from preferences
+	private boolean getSetting(SharedPreferences sp, int preferenceKey, int preferenceDefault) {
+		return sp.getBoolean(
+				getString(preferenceKey),
+				(getString(preferenceDefault) == "true") ? true	: false);
+	}
+	
 	/**
 	 * Show norification based on message
 	 * 
@@ -40,45 +47,11 @@ public class SystemNotificator extends ContextWrapper {
 	 */
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 	public void showNotification(Message m) {
-		Log.i(TAG, "Showing Notification for " + m.State.toString());
-		SharedPreferences sp = PreferenceManager
-				.getDefaultSharedPreferences(getBaseContext());
+		Log.i(TAG, "Showing Notification for " + m.getState().toString());
 
-		String wkey = getString(R.string.pre_event_wifi_key);
-		boolean wdef = (getString(R.bool.pre_event_wifi_Default) == "true") ? true
-				: false;
-		String mkey = getString(R.string.pre_event_mobile_key);
-		boolean mdef = (getString(R.bool.pre_event_mobile_Default) == "true") ? true
-				: false;
-		String nkey = getString(R.string.pre_event_none_key);
-		boolean ndef = (getString(R.bool.pre_event_none_default) == "true") ? true
-				: false;
-		// get settings
-		boolean nWifi = sp.getBoolean(wkey, wdef);
-		boolean nMobile = sp.getBoolean(mkey, mdef);
-		boolean nNone = sp.getBoolean(nkey, ndef);
-
-		boolean hide = false;
-		if (!(m.State == null))
-			switch (m.State) {
-			case Mobile:
-				if (!nMobile)
-					hide = true;
-				break;
-			case Airplane:
-			case Disconnected:
-				if (!nNone)
-					hide = true;
-				break;
-			case Wifi:
-			case AirplaneWithWifi:
-				if (!nWifi)
-					hide = true;
-				break;
-			default:
-				break;
-			}
-
+		// Check whetever notification needed to be hided on non notification event
+		boolean hide = isNotificationNeeded(m);
+		if (hide) Log.i(TAG,"Notification not needed");
 		if (isNotificationEnabled()) {
 			// Get a reference to the NotificationManager
 			NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -90,13 +63,28 @@ public class SystemNotificator extends ContextWrapper {
 					Log.e(TAG, "Error canceling notification");
 				}
 			} else {
-				Notification notification = CreateNotification(m);
-				// Hide icon feature (for API 16+)
+				Log.i(TAG, "Creating notification");
+				Notification notification = null;
+				
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+					// use the depreceated notification creation api.
+					// Used for debuging of deprecated algorithm on newer api (16+) 
+					boolean forceDepreceated = true;
+					if (forceDepreceated) {
+						Log.w(TAG, "Using depreceated notification builder");
+						notification = CreateNotification(m);							
+					} else {
+						notification = CreateNotificationUsingBuilder(m);
+					}
 					if (PreferencesActivity.isHideIcon(this)) {
+						// Hide icon feature (only API 16+)
 						notification.priority = Notification.PRIORITY_MIN;
 					}					
-				}
+				} else {
+					// force old api on lower API then 16 (JELLY BEAN)
+					notification = CreateNotification(m);
+				}					
+				// Send notification to notificationManager
 				nm.notify(ID, notification);
 			}
 		} else {
@@ -105,15 +93,64 @@ public class SystemNotificator extends ContextWrapper {
 					(new SystemNotificator(this)).FXOnly(m);
 				} catch (IllegalArgumentException e) {
 					e.printStackTrace();
+					Log.e(TAG, e.getMessage());
 				} catch (SecurityException e) {
 					e.printStackTrace();
+					Log.e(TAG, e.getMessage());
 				} catch (IllegalStateException e) {
 					e.printStackTrace();
+					Log.e(TAG, e.getMessage());
 				} catch (IOException e) {
 					e.printStackTrace();
+					Log.e(TAG, e.getMessage());
 				}
 		}
 	}
+
+	/**
+	 * Check if Notification is set to show on current connectivity event
+	 * @param m
+	 * @return
+	 */
+
+	private boolean isNotificationNeeded(Message m) {
+		SharedPreferences sp = PreferenceManager
+				.getDefaultSharedPreferences(getBaseContext());
+
+		// get settings
+		boolean notificationOnWifi = getSetting(sp,
+				R.string.pre_event_wifi_key, 
+				R.bool.pre_event_wifi_Default);
+		boolean notificationOnMobile = getSetting(sp,
+				R.string.pre_event_mobile_key, 
+				R.bool.pre_event_mobile_Default);
+		boolean notificationOnDisconnected = getSetting(sp,
+				R.string.pre_event_none_key, 
+				R.bool.pre_event_none_default);
+
+		boolean hide = false;
+		if (!(m.getState() == null))
+			switch (m.getState()) {
+			case Mobile:
+				if (!notificationOnMobile)
+					hide = true;
+				break;
+			case Airplane:
+			case Disconnected:
+				if (!notificationOnDisconnected)
+					hide = true;
+				break;
+			case Wifi:
+			case AirplaneWithWifi:
+				if (!notificationOnWifi)
+					hide = true;
+				break;
+			default:
+				break;
+			}
+		return hide;
+	}
+
 
 	/**
 	 * check Preferences if Notification is Enabled.
@@ -148,15 +185,36 @@ public class SystemNotificator extends ContextWrapper {
 		return R.drawable.icon1;		
 	}
 	
-	/**
-	 * 
+	/** 
+	 * Used for API 16+
 	 * @param m
 	 * @return
 	 */
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+	private Notification CreateNotificationUsingBuilder(Message m) {
+		Notification notification = new Notification.Builder(this)
+		.setTicker(m.getTickerText())
+        .setContentTitle(m.getContentTitle())
+        .setContentIntent(CreateIntent(m))
+        .setContentText(m.getContentText())
+        .setSmallIcon(getIcon(m.getState()))
+        .setOngoing(isOngoing())
+        .build();		
+		setVisualFlags(notification, m);
+		// return the object
+		return notification;
+	}
+	
+	/**
+	 * Used for API 8-15
+	 * @param m
+	 * @return
+	 */
+	@SuppressWarnings("deprecation")
 	public Notification CreateNotification(Message m) {
 		// Instantiate the Notification
 
-		Notification notification = new Notification(getIcon(m.State),
+		Notification notification = new Notification(getIcon(m.getState()),
 				m.getTickerText(), System.currentTimeMillis());
 		// Create Intent
 		PendingIntent contentIntent = CreateIntent(m);
@@ -203,7 +261,7 @@ public class SystemNotificator extends ContextWrapper {
 			return PendingIntent.getActivity(this, 0, new Intent(
 					Settings.ACTION_DATA_ROAMING_SETTINGS), 0);
 		if (action.equals("SMART"))
-			switch (m.State) {
+			switch (m.getState()) {
 			case WiMax:
 				return PendingIntent.getActivity(this, 0, new Intent(
 						Settings.ACTION_WIFI_SETTINGS), 0);
@@ -241,11 +299,10 @@ public class SystemNotificator extends ContextWrapper {
 		boolean diff = sp.getBoolean(dkey,
 				Constants.DefaultSettingDifferentActions);
 
+		// Different sound for each state
 		if (diff == true) {
-			// Different sound for each state
-
 			// Check state
-			switch (m.State) {
+			switch (m.getState()) {
 			case Mobile:
 				return GeneratePendingIntent(
 						sp.getString(
@@ -304,12 +361,14 @@ public class SystemNotificator extends ContextWrapper {
 				Constants.DefaultSettingNotificationVibrate);
 		boolean notificationLights = sp.getBoolean(lkey,
 				Constants.DefaultSettingNotificationLights);
-
+		
+		if (notificationSound) Log.d(TAG, "Notificaion Sound enabled");
+		if (notificationVibrate) Log.d(TAG, "Notificaion Vibrate enabled");
+		if (notificationLights) Log.d(TAG, "Notificaion Lights enabled");
+		
 		String strRingtonePreference = sp.getString(
 				getString(SoundToUse(message)), "DEFAULT_SOUND");
-		// Toast.makeText(this, "I'm stuck!", Toast.LENGTH_SHORT).show();
-		// mHandler.post(new DisplayToast(strRingtonePreference));
-		// mHandler.post(new DisplayToast("did something"));
+
 		// define notification
 		if (notificationSound) {
 			if (message.isSound())				
@@ -350,7 +409,7 @@ public class SystemNotificator extends ContextWrapper {
 				Constants.DefaultSettingNotificationSound);
 		if (OneRingtone) {
 			// different sounds
-			switch (message.State) {
+			switch (message.getState()) {
 			case WiMax:
 				return R.string.pre_ringtone_wimax_key;
 			case Mobile:
@@ -379,6 +438,7 @@ public class SystemNotificator extends ContextWrapper {
 	 */
 	public void FXOnly(Message message) throws IllegalArgumentException,
 			SecurityException, IllegalStateException, IOException {
+		Log.d(TAG, "Playing FX");
 		// Notification Sound And Vibrate
 		SharedPreferences sp = PreferenceManager
 				.getDefaultSharedPreferences(getBaseContext());

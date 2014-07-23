@@ -44,7 +44,7 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver {
 					// the service is being started or is already running,
 					// the ComponentName of the actual service that was started
 					// is returned;
-					Log.w(TAG, "the service is being started or is already running");
+					Log.d(TAG, "the service is being started or is already running");
 				}
 			} catch (SecurityException ex) {
 				Log.e(TAG, ex.getMessage());
