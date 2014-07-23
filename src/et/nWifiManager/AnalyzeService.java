@@ -93,7 +93,7 @@ public class AnalyzeService extends IntentService {
 							} else {
 								// create notification
 								if (!m.isSkip)
-									(new SystemNotificator(this)).showNotification(m);
+									(new SystemNotificator(this)).Show(m);
 							}
 						} else {
 							Log.e(TAG, "Analyzer returned null. failover to brute");
@@ -149,7 +149,7 @@ public class AnalyzeService extends IntentService {
 			lastStatus = status;
 		}
 		if (Notify) {
-			(new SystemNotificator(this)).showNotification(analyzer.GenerateMessage(status));
+			(new SystemNotificator(this)).Show(analyzer.GenerateMessage(status));
 			//showNotification(analyzer.GenerateMessage(status));
 		} else {
 			Log.i(TAG, "Skipping identical notification");

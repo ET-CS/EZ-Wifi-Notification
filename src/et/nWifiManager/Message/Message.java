@@ -1,5 +1,6 @@
 package et.nWifiManager.Message;
 
+import et.nWifiManager.Notificators.NotificationSettings;
 import et.nWifiManager.conState.ConnectionStatusEnum;
 
 /** 

@@ -24,7 +24,7 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
 
-public class SystemNotificator extends ContextWrapper {
+public class SystemNotificator extends ContextWrapper implements Notificator {
 
 	private static final String TAG = "SystemNotificator";
 	
@@ -32,6 +32,10 @@ public class SystemNotificator extends ContextWrapper {
 		super(base);
 	}
 
+	public void Show(Message m) {
+		showNotification(m);
+	}
+	
 	// Get Setting from preferences
 	private boolean getSetting(SharedPreferences sp, int preferenceKey, int preferenceDefault) {
 		return sp.getBoolean(
@@ -46,7 +50,7 @@ public class SystemNotificator extends ContextWrapper {
 	 *            - message
 	 */
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-	public void showNotification(Message m) {
+	private void showNotification(Message m) {
 		Log.i(TAG, "Showing Notification for " + m.getState().toString());
 
 		// Check whetever notification needed to be hided on non notification event
