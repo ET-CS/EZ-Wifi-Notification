@@ -16,6 +16,8 @@ import android.net.NetworkInfo.State;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+// TODO remove all SupressWarnings and fix
+
 public class IntentAnalyzer implements Analyzer {
 
 	private static String TAG = "Analyzer";
@@ -32,7 +34,7 @@ public class IntentAnalyzer implements Analyzer {
 	 * @param intent
 	 * @return current status as ConnectionStatusEnum
 	 */
-	@SuppressWarnings("incomplete-switch")
+	@SuppressWarnings({ "incomplete-switch" })
 	public Message AnalyzeIntent(Context context, Intent intent) {		
 		try {			
 			// get preferences

@@ -2,7 +2,9 @@ package et.nWifiManager;
 
 // PreferencesActivity.java - Preferences screen.
 
-import android.annotation.TargetApi;
+//TODO remove all SupressWarnings and convert to API 16+ Fragement
+
+
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -33,7 +35,6 @@ public class PreferencesActivity extends PreferenceActivity {
 	/**
 	 * Where it all begins.. load the UI from XML and call SetupButtons().
 	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class PreferencesActivity extends PreferenceActivity {
 	/** 
 	 * Helper: Setup all Buttons Handlers
 	 */
+	@SuppressWarnings("deprecation")
 	private void SetupButtons() {
 		// Load again notification on changes on:
 		setListener(R.string.pre_ip_key);
@@ -208,6 +210,7 @@ public class PreferencesActivity extends PreferenceActivity {
 	 * Helper: set listener to reload Notification on <resId>.onChange;
 	 * @param resId - Resource Id of the UI object.  
 	 */
+	@SuppressWarnings("deprecation")
 	private void setListener(int resId) {
 		(findPreference(getString(resId))).setOnPreferenceChangeListener(overrider);
 	}
@@ -216,6 +219,7 @@ public class PreferencesActivity extends PreferenceActivity {
 	 * Helper: set listener to remove and show again Notification on <resId>.onChange;
 	 * @param resId - Resource Id of the UI object.  
 	 */
+	@SuppressWarnings("deprecation")
 	private void setRestartListener(int resId) {
 		(findPreference(getString(resId))).setOnPreferenceChangeListener(restarter);
 	}
@@ -260,7 +264,8 @@ public class PreferencesActivity extends PreferenceActivity {
 	 * Lisener for onclick on seperate ringtone checkbox to disable notification sound checkbox
 	 */
 	private OnPreferenceClickListener OneRingtoneCheckBoxListener = new OnPreferenceClickListener() {
-	    public boolean onPreferenceClick(Preference preference) {
+	    @SuppressWarnings("deprecation")
+		public boolean onPreferenceClick(Preference preference) {
 			// Disable old ringtone checkbox
 			try {
 				CheckBoxPreference cb = (CheckBoxPreference) preference;
@@ -276,7 +281,8 @@ public class PreferencesActivity extends PreferenceActivity {
 	 * Lisener for onclick on seperate actions checkbox to disable old one action preference
 	 */
 	private OnPreferenceClickListener OneActionCheckBoxListener = new OnPreferenceClickListener() {
-	    public boolean onPreferenceClick(Preference preference) {
+	    @SuppressWarnings("deprecation")
+		public boolean onPreferenceClick(Preference preference) {
 			// Disable old ringtone checkbox
 			try {
 				CheckBoxPreference cb = (CheckBoxPreference) preference;
