@@ -32,7 +32,7 @@
     <string name="pre_ip_key">pre_ip</string>
     <string name="pre_ip_title">Show IP address</string>
     <bool name="pre_ip_default">false</bool>
-    <string name="pre_ip_summary">Show IP address on Wi-Fi</string>
+    <string name="pre_ip_summary">Show IP address on Wi-Fi and Mobile</string>
     <string name="pre_category_reset_key">pre_category_reset</string>
     <string name="pre_category_reset_title">Reset</string>
     <string name="pre_ssid_key">pre_ssid</string>

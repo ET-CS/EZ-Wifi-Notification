@@ -32,6 +32,19 @@ public class Messages {
 		return new Message(ConnectionStatusEnum.Mobile, (!short_title) ? "Connected via Mobile" : "Mobile");
 	}
 
+	public static Message Mobile(String ip, boolean short_title) {
+		Message m = new Message();
+		m.setContentTitle((!short_title) ? "Connected via Mobile" : "Mobile");
+		if (ip!=null && ip!="") {
+			m.setContentText("Mobile (" + ip + ")");
+		} else {
+			m.setContentText((!short_title) ? "Connected via Mobile" : "Mobile");
+		}
+		m.setTickerText(m.getContentText());
+		m.setState(ConnectionStatusEnum.Mobile);
+		return m;
+	}
+	
 	public static Message NoConnectivity() {
 		return new Message(ConnectionStatusEnum.Disconnected, "No network connection");
 	}
@@ -44,5 +57,7 @@ public class Messages {
 	public static Message WiMax(boolean short_title) {
 		return new Message(ConnectionStatusEnum.WiMax, (!short_title) ? "Connected via WIMAX" : "WIMAX");		
 	}
+
+
 	
 }

@@ -1,6 +1,12 @@
 package et.nWifiManager.Analyzers;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
 import java.util.Locale;
+
+import org.apache.http.conn.util.InetAddressUtils;
 
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -102,7 +108,7 @@ public class BrutalAnalyzer extends ContextWrapper implements Analyzer {
 					(isSSIDEnabled()) ? getSSID() : "",
 					(isIPEnabled()) ? getIP() : "", false, short_title);
 		case Mobile:
-			return Messages.Mobile(short_title);
+			return Messages.Mobile((isIPEnabled()) ? getip4Address() : "", short_title);
 		case NoWifi:
 		case Disconnected:
 			return Messages.NoConnectivity();
@@ -132,6 +138,29 @@ public class BrutalAnalyzer extends ContextWrapper implements Analyzer {
 		}
 	}
 
+	/** For mobile */
+	public static String getip4Address() {
+		try {
+			for (Enumeration<NetworkInterface> en = NetworkInterface
+					.getNetworkInterfaces(); en.hasMoreElements();) {
+				NetworkInterface intf = (NetworkInterface) en.nextElement();
+				for (Enumeration<InetAddress> enumIpAddr = intf
+						.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+					InetAddress inetAddress = enumIpAddr.nextElement();
+					if (!inetAddress.isLoopbackAddress() && InetAddressUtils.isIPv4Address(inetAddress.getHostAddress())) {
+						String ipaddress = inetAddress .getHostAddress()
+								.toString();
+						Log.d("ip address", "" + ipaddress);
+						return ipaddress;
+					}
+				}
+			}
+		} catch (SocketException ex) {
+			Log.e(TAG, "Exception in Get IP Address: " + ex.toString());
+		}
+		return null;
+	}
+	
 	/**
 	 * 
 	 * @return
