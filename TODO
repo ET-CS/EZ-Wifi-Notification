@@ -1,4 +1,8 @@
-Feautures:
+TODO Features:
+==============
+
+Important:
+----------
 * Start creating tests
 * mobile ip address is shown
 * Show internet IP if different from local IP
@@ -7,6 +11,9 @@ Feautures:
 * Disable Wi-Fi/Disable Flight buttons in main PreferencesActivity
 * Big notification option - more info & Custom notification with option to Disable Wi-Fi/Flight mode (When in flight mode).
 * Are you sure you want to reset settings question
+
+Later:
+------
 * Strengh icon on wifi
 * 'Scan button' in notification and/or Suggest to connect to Wi-Fi 
 * Effects in preferences screens

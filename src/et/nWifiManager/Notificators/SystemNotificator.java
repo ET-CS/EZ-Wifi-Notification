@@ -42,6 +42,14 @@ public class SystemNotificator extends ContextWrapper implements Notificator {
 				getString(preferenceKey),
 				(getString(preferenceDefault) == "true") ? true	: false);
 	}
+
+	private boolean getSetting(SharedPreferences sp,
+			int preferenceKey, boolean defaultsetting) {
+		return sp.getBoolean(
+				getString(preferenceKey),
+				defaultsetting );
+
+	}
 	
 	/**
 	 * Show norification based on message
@@ -447,31 +455,37 @@ public class SystemNotificator extends ContextWrapper implements Notificator {
 		SharedPreferences sp = PreferenceManager
 				.getDefaultSharedPreferences(getBaseContext());
 
-		String skey = getString(R.string.pre_notificationsound_key);
-		String vkey = getString(R.string.pre_notificationvib_key);
+		//String skey = getString(R.string.pre_notificationsound_key);
+		//String vkey = getString(R.string.pre_notificationvib_key);
 		// String lkey = getString(R.string.pre_notification_lights_key);
 		// get settings
-		boolean notificationSound = sp.getBoolean(skey,
-				Constants.DefaultSettingNotificationSound);
-		boolean notificationVibrate = sp.getBoolean(vkey,
-				Constants.DefaultSettingNotificationVibrate);
+		//boolean notificationSound = sp.getBoolean(skey,
+				//Constants.DefaultSettingNotificationSound);
+		//boolean notificationVibrate = sp.getBoolean(vkey,
+				//Constants.DefaultSettingNotificationVibrate);
 		// boolean notificationLights = sp.getBoolean(lkey,
 		// Constants.DefaultSettingNotificationLights);
 
+		boolean notificationSound = getSetting(sp, 
+				R.string.pre_notificationsound_key,
+				Constants.DefaultSettingNotificationSound );
+		boolean notificationVibrate = getSetting(sp, 
+				R.string.pre_notificationvib_key,
+				Constants.DefaultSettingNotificationVibrate );
+		// TODO Add support for notification lights
 		String strRingtonePreference = sp.getString(
 				getString(SoundToUse(message)), "DEFAULT_SOUND");
-
+		
 		// define notification
-		if (notificationSound) {
+		if (notificationSound & message.isSound()) {
 			Uri myUri = Uri.parse(strRingtonePreference); // initialize Uri here
 			MediaPlayer mediaPlayer = new MediaPlayer();
 			mediaPlayer.setAudioStreamType(AudioManager.STREAM_NOTIFICATION);
 			mediaPlayer.setDataSource(getApplicationContext(), myUri);
 			mediaPlayer.prepare();
 			mediaPlayer.start();
-
 		}
-		if (notificationVibrate) {
+		if (notificationVibrate & message.isVibrate()) {
 			// Get instance of Vibrator from current Context
 			Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 			long[] pattern = VibrationToUse(message);
