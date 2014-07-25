@@ -3,7 +3,6 @@ TODO Features:
 
 Important:
 ----------
-* Start creating tests
 * mobile ip address is shown
 * Show internet IP if different from local IP
 * Show what the data connection dBm number is in the ongoing, pull-down notification
