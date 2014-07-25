@@ -3,7 +3,6 @@ TODO Features:
 
 Important:
 ----------
-* mobile ip address is shown
 * Show internet IP if different from local IP
 * Show what the data connection dBm number is in the ongoing, pull-down notification
 * 'load prefences and Don't show this again' checkbox in the launcher activity.
