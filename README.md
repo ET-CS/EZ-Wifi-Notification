@@ -3,6 +3,8 @@ EZ-Wifi-Notification
 
 Never worry again to which Wi-Fi network you are connected!.
 
+![alt tag](https://lh3.ggpht.com/fv8-PdGQ2ASuxBeklWXJMVXB8JaQfczgLyUVBGWKth_ydvJQj6Dv7Z_7BpvBaHZBZcvu=h900-rw)
+
 Key features:
   - Notification of connectivity changes: Wi-Fi, Mobile, Flight mode (with or without Wi-Fi), No connectivity, and experimental Wi-MAX.
   - Easy, simple and useful
@@ -27,7 +29,7 @@ The required permissions are:
 Version
 ----
 
-EZ Wifi Notification v1.7 [available][EZ-WIFI] on the android market free.
+EZ Wifi Notification v1.7 available on the [android Play!][EZ-WIFI].
 
 License
 ----
