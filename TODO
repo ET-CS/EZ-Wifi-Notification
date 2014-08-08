@@ -3,19 +3,22 @@ TODO Features:
 
 Important:
 ----------
-* show IP only in mobile or Wifi (two checkboxes instead of one)
-* see IPV6 if available.
-* When no notification (FX) choose between notificationSound or MediaSound (currently only notification)
-* Show internet IP if different from local IP
-* Show what the data connection dBm number is in the ongoing, pull-down notification
+* Show internet IP (instead or both)
 * 'load prefences and Don't show this again' checkbox in the launcher activity.
+* New Custom Notification with more details and Wi-Fi (or other) switch button
+* New Launcher activity
 * Disable Wi-Fi/Disable Flight buttons in main PreferencesActivity
 * Big notification option - more info & Custom notification with option to Disable Wi-Fi/Flight mode (When in flight mode).
 * Are you sure you want to reset settings question
+* ActionBar in preferenceactivity with Contact/Share/WiFi Buttons (or whatever)
 
 Later:
 ------
-* Strengh icon on wifi
+* Upgrade preferenceActivity to fragements
+* When no notification (FX) choose between notificationSound or MediaSound (currently only notification)
+* show IP only in mobile or Wifi (two checkboxes instead of one)
+* see IPV6 if available.
+* Strengh icon on wifi and/or Show the data connection dBm in the notification
 * 'Scan button' in notification and/or Suggest to connect to Wi-Fi 
 * Effects in preferences screens
 * Backup/Import preferences (Manual and Auto) and/or sync to some cloud service (google+?)
