@@ -70,7 +70,7 @@ public class MyApplication extends Application {
 
 	public boolean runOnce() {
 		try {
-			startService(new Intent(this, AnalyzeIntentService.class));
+			startService(new Intent(this, AnalyzeService.class));
 		} catch (Exception ex) {
 			Toast.makeText(this, "Reciever Error: error in runOnce",
 					Toast.LENGTH_SHORT).show();

@@ -1,22 +1,26 @@
-Known bugz:
+TODO Features:
+==============
 
-Feautures:
-
-* Remove notification icon option. for only JELLY_BEAN API Level 16 and above.
-* 'Don't show this again' checkbox in the launcher activity.
-* Localization support
-* Disable Wi-Fi/Disable Flight buttons in main PreferencesActivity
+Important:
+----------
+* show IP only in mobile or Wifi (two checkboxes instead of one)
+* see IPV6 if available.
+* When no notification (FX) choose between notificationSound or MediaSound (currently only notification)
+* Show internet IP if different from local IP
 * Show what the data connection dBm number is in the ongoing, pull-down notification
-* Custom notification with option to Disable Wi-Fi/Flight mode (When in flight mode).
-* Vibration mode: normal vs lighter.
-* Define custom message for notifications 
+* 'load prefences and Don't show this again' checkbox in the launcher activity.
+* Disable Wi-Fi/Disable Flight buttons in main PreferencesActivity
+* Big notification option - more info & Custom notification with option to Disable Wi-Fi/Flight mode (When in flight mode).
+* Are you sure you want to reset settings question
+
+Later:
+------
 * Strengh icon on wifi
 * 'Scan button' in notification and/or Suggest to connect to Wi-Fi 
-* Connectivity log
-* Switch to better Wi-Fi option
-* mobile ip address is shown
 * Effects in preferences screens
 * Backup/Import preferences (Manual and Auto) and/or sync to some cloud service (google+?)
 * Creat original custom ringtone sounds for connectivity changes.
-* Are you sure you want to reset settings question
-* Show internet IP if different from local IP
+* Localization support
+* Vibration mode: normal vs lighter.
+* Connectivity log
+* Switch to better Wi-Fi option

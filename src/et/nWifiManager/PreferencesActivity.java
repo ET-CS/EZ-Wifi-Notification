@@ -2,13 +2,21 @@ package et.nWifiManager;
 
 // PreferencesActivity.java - Preferences screen.
 
+//TODO remove all SupressWarnings and convert to API 16+ Fragement
+
+
+import android.annotation.TargetApi;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
+import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -17,6 +25,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.preference.SwitchPreference;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -31,25 +40,64 @@ public class PreferencesActivity extends PreferenceActivity {
 	/**
 	 * Where it all begins.. load the UI from XML and call SetupButtons().
 	 */
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		//Log.println(Log.DEBUG, TAG , "Loading XML");
 		// Load the preferences from an XML resource
 		addPreferencesFromResource(R.xml.tiny_preferences);
-		
+
 		// Load the service (if not loaded before (?!)
 		((MyApplication) getApplication()).runOnce();
 		
 		// Setup Buttons handlers
-		SetupButtons();
+		SetupButtons();			
 
+	}
+
+	OnPreferenceClickListener loadAndroidWirelessSettings = new OnPreferenceClickListener() {
+		@Override
+		public boolean onPreferenceClick(Preference preference) {
+			showWifiActivity();
+			return true;
+		}
+		
+	};
+	
+	OnPreferenceChangeListener	switchWifiState = new OnPreferenceChangeListener() {
+		@Override
+		public boolean onPreferenceChange(Preference preference, Object isChecked) {
+			WifiManager wifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
+            wifiManager.setWifiEnabled((Boolean) isChecked);
+			return true;
+		}		
+	};
+	
+	@SuppressWarnings("deprecation")
+	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+	private void PrepareWifiSwitch() {
+		// Set the Wi-Fi Switch
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			SwitchPreference wifiSwitch = (SwitchPreference) findPreference(getString(R.string.pre_wifi_switch_key));
+		    //wifiSwitch.setOnPreferenceClickListener(loadAndroidWirelessSettings);
+		    wifiSwitch.setOnPreferenceChangeListener(switchWifiState);
+		    wifiSwitch.setChecked(getWifiState());
+		}
+	}
+	
+	private boolean getWifiState() {
+		ConnectivityManager cm =
+		        (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+		 
+		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+		return  activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
 	}
 
 	/** 
 	 * Helper: Setup all Buttons Handlers
 	 */
+	@SuppressWarnings("deprecation")
 	private void SetupButtons() {
 		// Load again notification on changes on:
 		setListener(R.string.pre_ip_key);
@@ -69,6 +117,11 @@ public class PreferencesActivity extends PreferenceActivity {
 		setListener(R.string.pre_notification_mobile_action_key);
 		setListener(R.string.pre_notification_disconnected_action_key);
 		setListener(R.string.pre_icon_nowifi_key);
+		setListener(R.string.pre_notification_icon_key);
+		setRestartListener(R.string.pre_notification_icon_key);
+
+		PrepareWifiSwitch();
+
 		
 		// Set the ringtone one button to set off the old rington selector
 		try {
@@ -82,6 +135,17 @@ public class PreferencesActivity extends PreferenceActivity {
 			
 		}
 
+		// Enable the notification hide icon setting on api 19+
+		try {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+				CheckBoxPreference hideicon = (CheckBoxPreference) findPreference(getString(R.string.pre_notification_icon_key));
+				hideicon.setEnabled(true);
+				hideicon.setSummary(R.string.pre_notification_icon_summary_avail);
+			}
+		} catch (Exception e) {
+			
+		} 
+		
 		// Set up 'different actions' to disable old one action button.
 		try {
 			CheckBoxPreference diffactions = (CheckBoxPreference) findPreference(getString(R.string.pre_action_different_key));
@@ -166,15 +230,13 @@ public class PreferencesActivity extends PreferenceActivity {
 						return true;
 					}
 				});
+
+
+		
 		//wireless
 		Preference WifiSettingsPref = (Preference) findPreference(getString(R.string.pre_wifisettings_key));
 		WifiSettingsPref
-				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-					public boolean onPreferenceClick(Preference preference) {
-						showWifiActivity();
-						return true;
-					}
-				});
+				.setOnPreferenceClickListener(loadAndroidWirelessSettings);
 		Preference BackPref = (Preference) findPreference(getString(R.string.back));
 		BackPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			public boolean onPreferenceClick(Preference preference) {
@@ -191,10 +253,20 @@ public class PreferencesActivity extends PreferenceActivity {
 	 * Helper: set listener to reload Notification on <resId>.onChange;
 	 * @param resId - Resource Id of the UI object.  
 	 */
+	@SuppressWarnings("deprecation")
 	private void setListener(int resId) {
 		(findPreference(getString(resId))).setOnPreferenceChangeListener(overrider);
 	}
 
+	/**
+	 * Helper: set listener to remove and show again Notification on <resId>.onChange;
+	 * @param resId - Resource Id of the UI object.  
+	 */
+	@SuppressWarnings("deprecation")
+	private void setRestartListener(int resId) {
+		(findPreference(getString(resId))).setOnPreferenceChangeListener(restarter);
+	}
+	
 	// --------  Gui helpers ----------
 	
 	/**
@@ -210,6 +282,19 @@ public class PreferencesActivity extends PreferenceActivity {
 	};
 
 	/**
+	 * Helper: remove and reload Notification on <resId>.onChange.
+	 * Set by setListener on resId of objects need to reset notification on changes.
+	 */
+	public OnPreferenceChangeListener restarter = new OnPreferenceChangeListener() {
+		@Override
+		public boolean onPreferenceChange(Preference preference, Object newValue) {
+			clearNotification();
+			((MyApplication) getApplication()).runOnce();
+			return true;
+		}
+	};
+	
+	/**
 	 * Disable notification sound checkboxPreference
 	 * @param pref
 	 * @param stats
@@ -222,7 +307,8 @@ public class PreferencesActivity extends PreferenceActivity {
 	 * Lisener for onclick on seperate ringtone checkbox to disable notification sound checkbox
 	 */
 	private OnPreferenceClickListener OneRingtoneCheckBoxListener = new OnPreferenceClickListener() {
-	    public boolean onPreferenceClick(Preference preference) {
+	    @SuppressWarnings("deprecation")
+		public boolean onPreferenceClick(Preference preference) {
 			// Disable old ringtone checkbox
 			try {
 				CheckBoxPreference cb = (CheckBoxPreference) preference;
@@ -238,7 +324,8 @@ public class PreferencesActivity extends PreferenceActivity {
 	 * Lisener for onclick on seperate actions checkbox to disable old one action preference
 	 */
 	private OnPreferenceClickListener OneActionCheckBoxListener = new OnPreferenceClickListener() {
-	    public boolean onPreferenceClick(Preference preference) {
+	    @SuppressWarnings("deprecation")
+		public boolean onPreferenceClick(Preference preference) {
 			// Disable old ringtone checkbox
 			try {
 				CheckBoxPreference cb = (CheckBoxPreference) preference;
@@ -334,7 +421,6 @@ public class PreferencesActivity extends PreferenceActivity {
 			intent.setData(Uri.parse("mailto:et.programming@gmail.com?subject=EZ Wifi Notification v"+version));
 			startActivity(intent);
 		} catch (NameNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -353,6 +439,15 @@ public class PreferencesActivity extends PreferenceActivity {
 		String key = context.getString(R.string.pre_short_title_key);
 		return sp.getBoolean(key,
 				Constants.DefaultSettingNotificationShortTitle); 
+	}
+
+	public static boolean isHideIcon(Context context) {
+		// get settings
+		SharedPreferences sp = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		String key = context.getString(R.string.pre_notification_icon_key);
+		return sp.getBoolean(key,
+				Constants.DefaultSettingNotificationHideIcon);
 	}
 
 }

@@ -47,5 +47,5 @@
     <string name="pre_action_different_key">pre_action_different</string>
     <string name="pre_action_different_title">Different actions</string>
     <string name="pre_action_different_summary">Different action for every connectivity state</string>
-    <string name="pre_action_different_default">false</string>
+    <bool name="pre_action_different_default">false</bool>
 </resources>

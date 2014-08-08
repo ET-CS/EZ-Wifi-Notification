@@ -1,4 +1,4 @@
-package et.nWifiManager.Message;
+package et.nWifiManager.Notificators;
 
 import android.app.PendingIntent;
 import android.net.Uri;
@@ -17,10 +17,10 @@ public class NotificationSettings {
 	private CharSequence contentText;
 	private PendingIntent resultIntent;
 	private boolean onGoing;
-	private boolean vibrate;
+	private boolean vibrate=true;	//TODO find out why this is here and how to remove the default true (without it no sound notification)
 	private long[] vibratePattern;
 	private boolean showLights;
-	private boolean sound;
+	private boolean sound=true;		//TODO find out why this is here and how to remove the default true (without it no sound notification)
 	private Uri soundUri;
 	
 	// Getters and Setters

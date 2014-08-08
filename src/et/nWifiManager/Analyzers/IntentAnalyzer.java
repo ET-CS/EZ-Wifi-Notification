@@ -1,4 +1,4 @@
-package et.nWifiManager.conState;
+package et.nWifiManager.Analyzers;
 
 import et.nWifiManager.Constants;
 import et.nWifiManager.Hardware;
@@ -16,7 +16,9 @@ import android.net.NetworkInfo.State;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-public class Analyzer {
+// TODO remove all SupressWarnings and fix
+
+public class IntentAnalyzer implements Analyzer {
 
 	private static String TAG = "Analyzer";
 	
@@ -32,7 +34,7 @@ public class Analyzer {
 	 * @param intent
 	 * @return current status as ConnectionStatusEnum
 	 */
-	@SuppressWarnings("incomplete-switch")
+	@SuppressWarnings({ "incomplete-switch" })
 	public Message AnalyzeIntent(Context context, Intent intent) {		
 		try {			
 			// get preferences
@@ -85,7 +87,7 @@ public class Analyzer {
 			}
 			
 			String fkey = context.getString(R.string.pre_event_flight_key);
-			boolean fdef = (context.getString(R.string.pre_event_flight_Default)=="true") ? true : false;
+			boolean fdef = (context.getString(R.bool.pre_event_flight_Default)=="true") ? true : false;
 			boolean nFlight = sp.getBoolean(fkey, fdef);
 			boolean flight = false;
 			if (nFlight) flight = Hardware.isAirplaneModeOn(context);

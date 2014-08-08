@@ -29,5 +29,6 @@ public final class Constants {
 	public static final boolean DefaultSettingDifferentActions = false;
 	public static final boolean DefaultSettingLog = false;
 	public static final boolean DefaultSettingNoWifiIcon = false;
+	public static final boolean DefaultSettingNotificationHideIcon = false;
 
 }

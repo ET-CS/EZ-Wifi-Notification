@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="Preferences" >
+    <SwitchPreference
+        android:key="@string/pre_wifi_switch_key"
+        android:persistent="false"
+        android:title="@string/pre_wifi_switch_title" />
     <PreferenceCategory
         android:key="@string/pre_category_notification_key"
         android:title="@string/pre_category_notification_title" >
