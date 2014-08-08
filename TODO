@@ -4,13 +4,11 @@ TODO Features:
 Important:
 ----------
 * Show internet IP (instead or both)
-* 'load prefences and Don't show this again' checkbox in the launcher activity.
-* New Custom Notification with more details and Wi-Fi (or other) switch button
-* New Launcher activity
+* Better Launcher activity + 'load prefences and Don't show this again' checkbox.
 * Disable Wi-Fi/Disable Flight buttons in main PreferencesActivity
-* Big notification option - more info & Custom notification with option to Disable Wi-Fi/Flight mode (When in flight mode).
-* Are you sure you want to reset settings question
-* ActionBar in preferenceactivity with Contact/Share/WiFi Buttons (or whatever)
+* New Custom Notification - more info & Custom notification with Wi-Fi/Flight/Mobile switch.
+* "Are you sure you want to reset settings?" question
+* ActionBar in PreferenceActivity with Contact/Share/WiFi Buttons (or whatever)
 
 Later:
 ------
