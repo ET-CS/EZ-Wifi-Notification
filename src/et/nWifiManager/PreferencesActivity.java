@@ -5,13 +5,17 @@ package et.nWifiManager;
 //TODO remove all SupressWarnings and convert to API 16+ Fragement
 
 
+import android.annotation.TargetApi;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -21,6 +25,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.preference.SwitchPreference;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -51,6 +56,44 @@ public class PreferencesActivity extends PreferenceActivity {
 
 	}
 
+	OnPreferenceClickListener loadAndroidWirelessSettings = new OnPreferenceClickListener() {
+		@Override
+		public boolean onPreferenceClick(Preference preference) {
+			showWifiActivity();
+			return true;
+		}
+		
+	};
+	
+	OnPreferenceChangeListener	switchWifiState = new OnPreferenceChangeListener() {
+		@Override
+		public boolean onPreferenceChange(Preference preference, Object isChecked) {
+			WifiManager wifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
+            wifiManager.setWifiEnabled((Boolean) isChecked);
+			return true;
+		}		
+	};
+	
+	@SuppressWarnings("deprecation")
+	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+	private void PrepareWifiSwitch() {
+		// Set the Wi-Fi Switch
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			SwitchPreference wifiSwitch = (SwitchPreference) findPreference(getString(R.string.pre_wifi_switch_key));
+		    //wifiSwitch.setOnPreferenceClickListener(loadAndroidWirelessSettings);
+		    wifiSwitch.setOnPreferenceChangeListener(switchWifiState);
+		    wifiSwitch.setChecked(getWifiState());
+		}
+	}
+	
+	private boolean getWifiState() {
+		ConnectivityManager cm =
+		        (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+		 
+		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+		return  activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
+	}
+
 	/** 
 	 * Helper: Setup all Buttons Handlers
 	 */
@@ -76,6 +119,8 @@ public class PreferencesActivity extends PreferenceActivity {
 		setListener(R.string.pre_icon_nowifi_key);
 		setListener(R.string.pre_notification_icon_key);
 		setRestartListener(R.string.pre_notification_icon_key);
+
+		PrepareWifiSwitch();
 
 		
 		// Set the ringtone one button to set off the old rington selector
@@ -185,15 +230,13 @@ public class PreferencesActivity extends PreferenceActivity {
 						return true;
 					}
 				});
+
+
+		
 		//wireless
 		Preference WifiSettingsPref = (Preference) findPreference(getString(R.string.pre_wifisettings_key));
 		WifiSettingsPref
-				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-					public boolean onPreferenceClick(Preference preference) {
-						showWifiActivity();
-						return true;
-					}
-				});
+				.setOnPreferenceClickListener(loadAndroidWirelessSettings);
 		Preference BackPref = (Preference) findPreference(getString(R.string.back));
 		BackPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			public boolean onPreferenceClick(Preference preference) {

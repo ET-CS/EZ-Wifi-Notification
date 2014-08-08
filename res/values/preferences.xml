@@ -168,4 +168,6 @@
     <string name="pre_notification_icon_summary">Available only to android 4.1+ users</string>
     <string name="pre_notification_icon_summary_avail">Enable to hide top notification icon</string>
     <bool name="pre_notification_icon_default">false</bool>
+    <string name="pre_wifi_switch_key">pre_wifi_switch</string>
+    <string name="pre_wifi_switch_title">Wi-Fi</string>
 </resources>
