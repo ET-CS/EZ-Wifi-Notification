@@ -211,6 +211,20 @@ public class PreferencesActivity extends PreferenceActivity {
 		}
 
 		try {
+			// Set ETCS.ME Preference link
+			Preference ETCS = (Preference) findPreference(getString(R.string.pre_etcs_key));
+			ETCS.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+				public boolean onPreferenceClick(Preference preference) {
+					OpenETCS();
+					return true;
+				}
+			});			
+		} finally {
+			
+		}
+
+		
+		try {
 			// Set GitHub Preference link
 			Preference Contact = (Preference) findPreference(getString(R.string.pre_contact_key));
 			Contact.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -426,6 +440,16 @@ public class PreferencesActivity extends PreferenceActivity {
 		startActivity(intent);
 	}
 
+	/**
+	 * Open ETCS.ME Page
+	 */
+	public void OpenETCS() {
+		Log.println(Log.DEBUG, TAG, "Opening GitHub page");
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		intent.setData(Uri.parse("http://etcs.me"));
+		startActivity(intent);
+	}
+	
 	/**
 	 * Open GitHub Page
 	 */

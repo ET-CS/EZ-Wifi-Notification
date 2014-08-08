@@ -154,6 +154,9 @@
     <string name="pre_github_key">pre_github</string>
     <string name="pre_github_title">Fork on GitHub</string>
     <string name="pre_github_summary">Do you know this software is Open-Source?</string>
+    <string name="pre_etcs_key">pre_etcs</string>
+    <string name="pre_etcs_title">Visit ETCS.ME</string>
+    <string name="pre_etcs_summary">Visit the author website</string>
     <string name="pre_category_icon_key">pre_category_icon</string>
     <string name="pre_category_icon_title">Icon</string>
     <string name="pre_icon_nowifi_key">pre_icon_nowifi</string>
@@ -182,6 +185,6 @@
     <string name="pre_switch_airplane_key">pre_switch_airplane</string>
     <string name="pre_switch_airplane_title">Show Airplane mode switch</string>
     <string name="pre_switch_airplane_summary">Show turn on/off Airplane-mode switch button</string>
-    <bool name="pre_switch_airplane_default">false</bool>
+    <bool name="pre_switch_airplane_default">false</bool>
     -->
 </resources>

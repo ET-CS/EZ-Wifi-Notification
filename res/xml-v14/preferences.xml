@@ -265,7 +265,11 @@
                     android:summary="@string/pre_light_theme_summary"
                     android:title="@string/pre_light_theme_title" />
             </PreferenceCategory>
-            <PreferenceCategory android:title="About" >
+            <PreferenceCategory android:title="Contact" >
+                <Preference
+                    android:key="@string/pre_etcs_key"
+                    android:summary="@string/pre_etcs_summary"
+                    android:title="@string/pre_etcs_title" />
                 <Preference
                     android:key="@string/pre_github_key"
                     android:summary="@string/pre_github_summary"
