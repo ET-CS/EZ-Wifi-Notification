@@ -189,6 +189,7 @@
                 </ListPreference>
                 <CheckBoxPreference
                     android:defaultValue="@bool/pre_action_different_default"
+                    android:dependency="@string/pre_notification_key"
                     android:key="@string/pre_action_different_key"
                     android:summary="@string/pre_action_different_summary"
                     android:title="@string/pre_action_different_title" />
