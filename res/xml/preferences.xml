@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="Preferences" >
-    <SwitchPreference
+    <CheckBoxPreference
         android:key="@string/pre_wifi_switch_key"
         android:persistent="false"
         android:title="@string/pre_wifi_switch_title" />
@@ -258,18 +258,23 @@
                     android:title="@string/pre_reset_title" >
                 </Preference>
             </PreferenceCategory>
-            <Preference
-                android:key="@string/pre_github_key"
-                android:summary="@string/pre_github_summary"
-                android:title="@string/pre_github_title" />
-            <Preference
-                android:key="@string/pre_contact_key"
-                android:summary="@string/pre_contact_summary"
-                android:title="@string/pre_contact_title" />
-            <Preference
-                android:key="@string/back"
-                android:title="@string/back" >
-            </Preference>
+            <PreferenceCategory android:title="Appearance" >
+                <CheckBoxPreference
+                    android:defaultValue="@bool/pre_light_theme_default"
+                    android:key="@string/pre_light_theme_key"
+                    android:summary="@string/pre_light_theme_summary"
+                    android:title="@string/pre_light_theme_title" />
+            </PreferenceCategory>
+            <PreferenceCategory android:title="About" >
+                <Preference
+                    android:key="@string/pre_github_key"
+                    android:summary="@string/pre_github_summary"
+                    android:title="@string/pre_github_title" />
+                <Preference
+                    android:key="@string/pre_contact_key"
+                    android:summary="@string/pre_contact_summary"
+                    android:title="@string/pre_contact_title" />
+            </PreferenceCategory>
         </PreferenceScreen>
     </PreferenceCategory>
     <PreferenceCategory android:title="About" >

@@ -24,7 +24,6 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.provider.Settings;
 import android.util.Log;
@@ -43,10 +42,11 @@ public class PreferencesActivity extends PreferenceActivity {
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (isLightTheme(this)) setTheme(R.style.LightThemeSelector);
 		super.onCreate(savedInstanceState);
 
 		// Load the preferences from an XML resource
-		addPreferencesFromResource(R.xml.tiny_preferences);
+		addPreferencesFromResource(R.xml.preferences);
 
 		// Load the service (if not loaded before (?!)
 		((MyApplication) getApplication()).runOnce();
@@ -80,12 +80,15 @@ public class PreferencesActivity extends PreferenceActivity {
 		// Set the Wi-Fi Switch
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 			SwitchPreference wifiSwitch = (SwitchPreference) findPreference(getString(R.string.pre_wifi_switch_key));
-		    //wifiSwitch.setOnPreferenceClickListener(loadAndroidWirelessSettings);
 		    wifiSwitch.setOnPreferenceChangeListener(switchWifiState);
 		    wifiSwitch.setChecked(getWifiState());
+		} else {
+			CheckBoxPreference wifiSwitch = (CheckBoxPreference) findPreference(getString(R.string.pre_wifi_switch_key));
+		    wifiSwitch.setOnPreferenceChangeListener(switchWifiState);
+			wifiSwitch.setChecked(getWifiState());
 		}
 	}
-	
+
 	private boolean getWifiState() {
 		ConnectivityManager cm =
 		        (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -120,7 +123,27 @@ public class PreferencesActivity extends PreferenceActivity {
 		setListener(R.string.pre_notification_icon_key);
 		setRestartListener(R.string.pre_notification_icon_key);
 
-		PrepareWifiSwitch();
+		// Wifi switch
+		try {
+			PrepareWifiSwitch();	
+		} catch (Exception e) {
+			Log.e(TAG, e.toString());
+		}
+		
+		
+		// Set refresh activity on Theme change
+		CheckBoxPreference theme = (CheckBoxPreference) findPreference(getString(R.string.pre_light_theme_key));
+		theme.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+
+			@Override
+			public boolean onPreferenceChange(Preference preference,
+					Object newValue) {
+				refresh();
+				return true;
+			}
+			
+		});
+
 
 		
 		// Set the ringtone one button to set off the old rington selector
@@ -237,6 +260,8 @@ public class PreferencesActivity extends PreferenceActivity {
 		Preference WifiSettingsPref = (Preference) findPreference(getString(R.string.pre_wifisettings_key));
 		WifiSettingsPref
 				.setOnPreferenceClickListener(loadAndroidWirelessSettings);
+		
+		/* Back button removed at version 2.0 
 		Preference BackPref = (Preference) findPreference(getString(R.string.back));
 		BackPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			public boolean onPreferenceClick(Preference preference) {
@@ -247,6 +272,7 @@ public class PreferencesActivity extends PreferenceActivity {
 				return true;
 			}
 		});
+		*/
 	}
 	
 	/**
@@ -441,6 +467,29 @@ public class PreferencesActivity extends PreferenceActivity {
 				Constants.DefaultSettingNotificationShortTitle); 
 	}
 
+	// Get Setting from preferences
+	private static boolean getSetting(Context context, SharedPreferences sp, int preferenceKey, int preferenceDefault) {
+		return sp.getBoolean(
+				context.getString(preferenceKey),
+				(context.getString(preferenceDefault) == "true") ? true	: false);
+	}
+
+	@SuppressWarnings("unused")
+	private static boolean getSetting(Context context, SharedPreferences sp,
+			int preferenceKey, boolean defaultsetting) {
+		return sp.getBoolean(
+				context.getString(preferenceKey),
+				defaultsetting );
+
+	}
+	
+	public static boolean isLightTheme(Context context) {
+		// get settings
+		SharedPreferences sp = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		return getSetting(context, sp, R.string.pre_light_theme_key, R.bool.pre_light_theme_default);
+	}
+	
 	public static boolean isHideIcon(Context context) {
 		// get settings
 		SharedPreferences sp = PreferenceManager

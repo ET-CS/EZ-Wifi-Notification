@@ -170,4 +170,18 @@
     <bool name="pre_notification_icon_default">false</bool>
     <string name="pre_wifi_switch_key">pre_wifi_switch</string>
     <string name="pre_wifi_switch_title">Wi-Fi</string>
+    <string name="pre_light_theme_key">pre_light_theme</string>
+    <string name="pre_light_theme_title">Light Theme</string>
+    <string name="pre_light_theme_summary">Use light theme in EZ-Wifi preferences</string>
+    <bool name="pre_light_theme_default">false</bool>
+    <!--
+    <string name="pre_switch_mobile_key">pre_switch_mobile</string>
+    <string name="pre_switch_mobile_title">Show Mobile switch</string>
+    <string name="pre_switch_mobile_summary">Show turn on/off mobile switch button</string>
+    <bool name="pre_switch_mobile_default">false</bool>
+    <string name="pre_switch_airplane_key">pre_switch_airplane</string>
+    <string name="pre_switch_airplane_title">Show Airplane mode switch</string>
+    <string name="pre_switch_airplane_summary">Show turn on/off Airplane-mode switch button</string>
+    <bool name="pre_switch_airplane_default">false</bool>
+    -->
 </resources>
