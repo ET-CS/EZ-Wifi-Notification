@@ -3,6 +3,9 @@ TODO Features:
 
 Important:
 ----------
+* show IP only in mobile or Wifi (two checkboxes instead of one)
+* see IPV6 if available.
+* When no notification (FX) choose between notificationSound or MediaSound (currently only notification)
 * Show internet IP if different from local IP
 * Show what the data connection dBm number is in the ongoing, pull-down notification
 * 'load prefences and Don't show this again' checkbox in the launcher activity.

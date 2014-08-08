@@ -173,16 +173,8 @@ public class BrutalAnalyzer extends ContextWrapper implements Analyzer {
 			return String.format(Locale.getDefault(), "%d.%d.%d.%d",
 					(ipAddress & 0xff), (ipAddress >> 8 & 0xff),
 					(ipAddress >> 16 & 0xff), (ipAddress >> 24 & 0xff));
-			/*
-			 * for (Enumeration<NetworkInterface> en =
-			 * NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
-			 * NetworkInterface intf = en.nextElement(); for
-			 * (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses();
-			 * enumIpAddr.hasMoreElements();) { InetAddress inetAddress =
-			 * enumIpAddr.nextElement(); if (!inetAddress.isLoopbackAddress()) {
-			 * return inetAddress.getHostAddress().toString(); } } }
-			 */
 		} catch (Exception ex) {
+			Log.e(TAG, ex.getMessage());
 			return "";
 		}
 	}
