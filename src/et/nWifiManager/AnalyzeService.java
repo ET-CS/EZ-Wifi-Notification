@@ -80,8 +80,7 @@ public class AnalyzeService extends IntentService {
 					if (intent.getExtras() != null) {
 						Message m = null;
 						try {
-							m = (new IntentAnalyzer()).AnalyzeIntent(
-									this, intent);
+							m = (new IntentAnalyzer(this)).AnalyzeIntent(intent);
 						} catch (Exception ex) {
 							Log.e(TAG, "unknown fatal error analyzing intent. failover to brute", ex);
 							ShowNotificationBrutaly();
@@ -96,7 +95,7 @@ public class AnalyzeService extends IntentService {
 									(new SystemNotificator(this)).Show(m);
 							}
 						} else {
-							Log.e(TAG, "Analyzer returned null. failover to brute");
+							Log.w(TAG, "Analyzer returned null. failover to brute");
 							ShowNotificationBrutaly();
 						}
 					} else {

@@ -24,7 +24,7 @@ import et.nWifiManager.Message.Message;
 import et.nWifiManager.Message.Messages;
 import et.nWifiManager.conState.ConnectionStatusEnum;
 
-public class BrutalAnalyzer extends ContextWrapper implements Analyzer {
+public class BrutalAnalyzer extends ContextWrapper implements AnalyzerInterface {
 
 	private static final String TAG = "BrutalAnalyzer";
 	
